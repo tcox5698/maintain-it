@@ -26,6 +26,10 @@ Assuming you named your git remote for test environment "herokutest"
     
 ## TEST
 
+Codeship will automagically run tests and push to maintainit-test heroku app.
+
     $ git remote -v    
     herokutest	https://git.heroku.com/maintainit-test.git (fetch)
     herokutest	https://git.heroku.com/maintainit-test.git (push)    
+    
+    
