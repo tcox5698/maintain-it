@@ -14,3 +14,10 @@ Then create a user (or a "role", as Postgres calls it):
     
     create role maintainit with createdb login password 'password';
     
+# Deploying to Test
+
+Assuming you named your git remote for test environment "herokutest"
+
+    git push herokutest master 
+    
+    heroku run rake db:migrate --app maintainit-test
