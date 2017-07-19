@@ -32,4 +32,8 @@ Codeship will automagically run tests and push to maintainit-test heroku app.
     herokutest	https://git.heroku.com/maintainit-test.git (fetch)
     herokutest	https://git.heroku.com/maintainit-test.git (push)    
     
+## PRODUCTION
+
+    heroku	https://git.heroku.com/maintainit.git (fetch)
+    heroku	https://git.heroku.com/maintainit.git (push)
     
