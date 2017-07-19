@@ -21,3 +21,11 @@ Assuming you named your git remote for test environment "herokutest"
     git push herokutest master 
     
     heroku run rake db:migrate --app maintainit-test
+    
+# Environments
+    
+## TEST
+
+    $ git remote -v    
+    herokutest	https://git.heroku.com/maintainit-test.git (fetch)
+    herokutest	https://git.heroku.com/maintainit-test.git (push)    
