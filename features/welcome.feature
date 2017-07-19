@@ -1,5 +1,6 @@
 Feature: Shows welcome landing page
 
   Scenario: Visitor visits site for first time
-    When a visitor goes to the home page
-    Then they see the welcome page
+    When I visit the home page
+    Then I see the welcome page
+    And I see a registration link
