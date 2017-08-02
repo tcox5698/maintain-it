@@ -7,5 +7,5 @@ Then(/^I see the welcome page$/) do
 end
 
 And(/^I see a registration link$/) do
-  expect(page).to have_link('Sign up!')
+  expect(page).to have_link('Sign Up! ->')
 end
