@@ -26,13 +26,14 @@
 <body>
 
 
-
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
     <h1>Welcome to Maintain It!</h1>
     <p>Get help from your residents and guests to keep things running smoothly.</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign Up! &raquo;</a></p>
+    <p>
+      <%= link_to('Sign Up! ->', new_user_registration_path, { class: 'btn btn-primary btn-lg', role: "button" }) %>
+    </p>
   </div>
 </div>
 
@@ -42,7 +43,9 @@
     <div class="col-md-4">
       <h2>Sign up!</h2>
       <p>Register with your email and join a property site - like your mom's cabin or your uncle's beach house.</p>
-      <p><a class="btn btn-default" href="#" role="button">Sign up!&raquo;</a></p>
+      <p>
+        <%= link_to('Sign Up! ->', new_user_registration_path, { class: 'btn btn-default', role: "button" }) %>
+      </p>
     </div>
     <div class="col-md-4">
       <h2>Check in!</h2>
