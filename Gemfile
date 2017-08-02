@@ -37,6 +37,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   gem 'rspec-rails', '~> 3.5'
 end
 
@@ -60,5 +61,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
 gem 'jquery-rails'
+
+gem 'devise'
 
 ruby "2.4.1"
