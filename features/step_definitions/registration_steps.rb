@@ -23,3 +23,8 @@ When(/^I click the confirmation link in the confirmation email$/) do
 
   visit confirm_link
 end
+
+And(/^I receive a confirmation email from 'noreply@tcdevllc\.com'$/) do
+  email = ActionMailer::Base.deliveries.last
+  expect(email.from).to eq ['noreply@tcdevllc.com']
+end
