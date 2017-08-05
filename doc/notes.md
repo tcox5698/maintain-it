@@ -1,10 +1,10 @@
 # Run local postgres in docker:
 
-    docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+    docker run --name some-postgres -e POSTGRES_PASSWORD=password -d postgres
     
 # Run local host-installed postgres:
     
-    postgres -D /Users/thomascox/dev/postgres_data/Users/thomascox/dev/postgres_data
+    postgres -D /Users/thomascox/dev/postgres_data
     
 ## Create DB user if necessary
     

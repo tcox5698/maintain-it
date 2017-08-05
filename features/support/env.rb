@@ -55,8 +55,10 @@ Capybara.register_driver :headless_chrome do |app|
 end
 
 if ENV['FULL_CHROME']
+  puts "USING FULL CHROME"
   Capybara.javascript_driver = :chrome
 else
+  puts "USING HEADLESS CHROME"
   Capybara.javascript_driver = :headless_chrome
 end  
 

@@ -2,14 +2,14 @@ Then(/^I see a notification '(.*)'$/) do | expected_message|
   expect(page).to have_content(expected_message)
 end
 
-
 When(/^I log in with username '(.*)' and password '(.*)'$/) do |user_name, password|
-  fill_in 'Email', with: user_name
-  fill_in 'Password', with: password
-  click_button 'Log in'
+  log_in(user_name, password)
 end
 
-
-And(/^I visit the Sites page$/) do
-  click_link 'Sites'
+Given(/^I am logged in as '(.*)'$/) do |user_name|
+  visit '/'
+  click_link('Sign Up!', match: :first)
+  enter_registration_info(user_name, 'Password7!')
+  click_email_confirmation_link
+  log_in(user_name, 'Password7!')
 end
