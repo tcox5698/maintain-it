@@ -9,19 +9,11 @@ end
 
 When(/^I enter my new username '(.*)' and password '(.*)' and submit$/) do |user_name, password|
   expect(page).to have_content('Email')
-  page.fill_in 'user[email]', :with => user_name
-  page.fill_in 'Password', :with => password
-  page.fill_in 'Password confirmation', :with => password
-  page.click_on 'Sign up'
+  enter_registration_info(user_name, password,)
 end
 
-
 When(/^I click the confirmation link in the confirmation email$/) do
-  email = ActionMailer::Base.deliveries.last
-  page = Nokogiri::HTML(email.body.to_s)
-  confirm_link = page.xpath('//a').first['href']
-
-  visit confirm_link
+  click_email_confirmation_link
 end
 
 And(/^I receive a confirmation email from 'noreply@tcdevllc\.com'$/) do

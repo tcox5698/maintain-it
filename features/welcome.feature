@@ -1,3 +1,4 @@
+@javascript
 Feature: Shows welcome landing page
 
   Scenario: Visitor visits site for first time
