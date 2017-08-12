@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "site_members/edit", type: :view do
   before(:each) do
     @site_member = assign(:site_member, SiteMember.create!(
-      :nick_name => "MyString",
-      :user => nil,
-      :site => nil
+      :nick_name => 'Fake Nick Name',
+      :user => FactoryGirl.create(:user),
+      :site => FactoryGirl.create(:site)
     ))
   end
 

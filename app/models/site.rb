@@ -1,4 +1,7 @@
 class Site < ApplicationRecord
+  validates_presence_of :name
+
+  has_many :site_members, dependent: :destroy
 end
 
 # == Schema Information
