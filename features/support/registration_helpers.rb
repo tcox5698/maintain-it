@@ -19,6 +19,19 @@ module RegistrationHelper
     fill_in 'Password', with: password
     click_button 'Log in'
   end
+
+  def register_and_login(user_name)
+    visit '/'
+    click_link('Sign Up!', match: :first)
+    enter_registration_info(user_name, 'Password7!')
+    click_email_confirmation_link
+    log_in(user_name, 'Password7!')
+  end
+
+  def logout
+    click_link 'Logout'
+    expect(page).to have_content('Signed out successfully.')
+  end
 end
 
 World(RegistrationHelper)

@@ -58,3 +58,9 @@ Then just push to heroku master:
     git push heroku master 
     
     heroku run rake db:migrate --app maintainit
+    
+# Annotating Models
+
+Using the annotate gem from ctran. After changing models, execute:
+
+`annotate --exclude tests,fixtures,factories,serializers`    

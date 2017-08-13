@@ -7,9 +7,5 @@ When(/^I log in with username '(.*)' and password '(.*)'$/) do |user_name, passw
 end
 
 Given(/^I am logged in as '(.*)'$/) do |user_name|
-  visit '/'
-  click_link('Sign Up!', match: :first)
-  enter_registration_info(user_name, 'Password7!')
-  click_email_confirmation_link
-  log_in(user_name, 'Password7!')
+  register_and_login(user_name)
 end
