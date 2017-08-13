@@ -53,8 +53,6 @@ RSpec.describe SitesController, type: :controller do
   end
 
   describe "POST #create" do
-
-
     context "with authenticated user" do
       before do
         allow(request.env['warden']).to receive(:authenticate!).and_return(user)
