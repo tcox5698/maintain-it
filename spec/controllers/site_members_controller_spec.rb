@@ -118,5 +118,4 @@ RSpec.describe SiteMembersController, type: :controller do
       expect(response).to redirect_to(site_members_url)
     end
   end
-
 end

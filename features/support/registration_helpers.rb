@@ -22,9 +22,15 @@ module RegistrationHelper
 
   def register_and_login(user_name)
     visit '/'
-    click_link('Sign Up!', match: :first)
-    enter_registration_info(user_name, 'Password7!')
-    click_email_confirmation_link
+
+    user = User.where(email: user_name).first
+
+    unless user
+      click_link('Sign Up!', match: :first)
+      enter_registration_info(user_name, 'Password7!')
+      click_email_confirmation_link
+    end
+    
     log_in(user_name, 'Password7!')
   end
 
