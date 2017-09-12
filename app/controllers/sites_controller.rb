@@ -5,7 +5,7 @@ class SitesController < ApplicationController
   # GET /sites
   # GET /sites.json
   def index
-    @sites = Site.all
+    @sites = current_user.sites
   end
 
   # GET /sites/1
@@ -68,7 +68,12 @@ class SitesController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_site
-    @site = Site.find(params[:id])
+    if current_user
+      @site = current_user.sites.where(id: params[:id]).first
+      raise ActiveRecord::RecordNotFound unless @site
+    end
+
+    @site
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

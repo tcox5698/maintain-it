@@ -4,6 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
+
+  has_many :site_members, dependent: :destroy
+
+  def sites
+    Site.joins(:site_members).where('site_members.user_id = ?', self.id)
+  end
 end
 
 # == Schema Information

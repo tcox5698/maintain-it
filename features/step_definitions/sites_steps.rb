@@ -28,16 +28,13 @@ Then(/^I see '(.*)' in the list of Sites$/) do |site_name|
   expect(page).to have_xpath("//td[.='#{site_name}']")
 end
 
-Then(/^I can edit the name of site '(.*)'$/) do |site_name|
+Then(/^I can change the name of site '(.*)' to '(.*)'$/) do |site_name, new_site_name|
   click_link 'Edit'
-  page.fill_in 'Name', :with => "modified #{site_name}"
+  page.fill_in 'Name', :with => "#{new_site_name}"
   click_button 'Update Site'
   expect(page).to have_content('Site was successfully updated.')
   visit_sites_page
-  expect(page).to have_xpath("//td[.='modified #{site_name}']")
-  click_link 'Edit'
-  page.fill_in 'Name', :with => "#{site_name}"
-  click_button 'Update Site'
+  expect(page).to have_xpath("//td[.='#{new_site_name}']")
 end
 
 And(/^I can delete the site '(.*)'$/) do |site_name|
@@ -57,4 +54,8 @@ end
 
 Then(/^I do not see '(.*)'$/) do |site_name|
   expect(page).not_to have_content(site_name)
+end
+
+Then(/^I see the site '(.*)'$/) do |site_name|
+  expect(page).to have_content "Name: #{site_name}"
 end

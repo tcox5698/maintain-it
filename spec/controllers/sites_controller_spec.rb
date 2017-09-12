@@ -2,51 +2,95 @@ require 'rails_helper'
 
 RSpec.describe SitesController, type: :controller do
   let(:user) {FactoryGirl.create(:user)}
-
-  let(:valid_attributes) {
-    {
-      name: 'fake site name'
-    }
-  }
-
-  let(:invalid_attributes) {
-    {
-      name: ''
-    }
-  }
-
+  let(:valid_attributes) {{ name: 'fake site name' }}
+  let(:invalid_attributes) {{ name: '' }}
   let(:valid_session) {{}}
 
-  describe "DELETE #destroy" do
+  context "some users and sites exist" do
+    let(:other_user) {FactoryGirl.create(:user, email: "otheruser@example.com")}
+    let(:other_site) {FactoryGirl.create(:site, name: "other site")}
+    let(:other_site_member) {FactoryGirl.create(:site_member, user: other_user, site: other_site)}
     let(:site_member) {FactoryGirl.create(:site_member, user: user)}
     let(:site) {site_member.site}
 
-    context "with authenticated user" do
-      before do
-        allow(request.env['warden']).to receive(:authenticate!).and_return(user)
-        allow(controller).to receive(:current_user).and_return(user)
+    before do
+      expect(site.name).to eq 'FactoryGirlSite'
+      expect(other_site_member.site.name).to eq 'other site'
+    end
+
+    describe "GET #show"   do
+      context "as guest" do
+        it "redirects to login" do
+          get :show, params: {id: 1}
+          expect(response).to redirect_to("/users/sign_in")
+        end
       end
 
-      context 'site with associated site_member' do
+      context "as authenticated user" do
         before do
-          expect(site_member.nick_name).to eq 'FactoryGirlSiteMember'
-          expect(Site.count).to eq 1
-          expect(SiteMember.count).to eq 1
-          expect(User.count).to eq 1
-
-          delete :destroy, params: { id: site.to_param }, session: valid_session
-        end
-        
-        it 'deletes the site member' do
-          expect(SiteMember.count).to eq 0
+          allow(request.env['warden']).to receive(:authenticate!).and_return(user)
+          allow(controller).to receive(:current_user).and_return(user)
         end
 
-        it 'deletes the site' do
-          expect(Site.count).to eq 0
+        it "renders the users site" do
+          get :show, params: {id: site.id}
+          expect(response.code).to eq "200"
+          expect(assigns(:site)).to eq site
+        end
+      end
+    end
+
+    describe "GET #index" do
+      context "as guest" do
+        it "redirects to login" do
+          get :index
+          expect(response).to redirect_to("/users/sign_in")
+        end
+      end
+
+      context "as authenticated user" do
+        before do
+          allow(request.env['warden']).to receive(:authenticate!).and_return(user)
+          allow(controller).to receive(:current_user).and_return(user)
         end
 
-        it 'does NOT delete the User' do
-          expect(User.count).to eq 1
+        it "renders the users sites" do
+          get :index
+          expect(response.code).to eq "200"
+          expect(assigns(:sites).to_ary).to eq [site]
+        end
+      end
+    end
+
+    describe "DELETE #destroy" do
+
+      context "with authenticated user" do
+        before do
+          allow(request.env['warden']).to receive(:authenticate!).and_return(user)
+          allow(controller).to receive(:current_user).and_return(user)
+        end
+
+        context 'site with associated site_member' do
+          before do
+            expect(site_member.nick_name).to eq 'FactoryGirlSiteMember'
+            expect(Site.count).to eq 2
+            expect(SiteMember.count).to eq 2
+            expect(User.count).to eq 2
+
+            delete :destroy, params: { id: site.to_param }, session: valid_session
+          end
+
+          it 'deletes the site member' do
+            expect(SiteMember.count).to eq 1
+          end
+
+          it 'deletes the site' do
+            expect(Site.count).to eq 1
+          end
+
+          it 'does NOT delete the User' do
+            expect(User.count).to eq 2
+          end
         end
       end
     end
