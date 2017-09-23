@@ -1,10 +1,10 @@
 # Run local postgres in docker:
 
-    docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+    docker run --name some-postgres -e POSTGRES_PASSWORD=password -d postgres
     
 # Run local host-installed postgres:
     
-    postgres -D /Users/thomascox/dev/postgres_data/Users/thomascox/dev/postgres_data
+    postgres -D /Users/thomascox/dev/postgres_data
     
 ## Create DB user if necessary
     
@@ -23,6 +23,8 @@ Run the `./script/build.sh` to execute rspec and cucumber tests.
 Cucumber tests will execute in headless chrome by default. To run full chrome for visual inspection, use:
 
     `FULL_CHROME=true ./script/build.sh`
+    
+    
     
 ## TEST/STAGE
 
@@ -58,3 +60,9 @@ Then just push to heroku master:
     git push heroku master 
     
     heroku run rake db:migrate --app maintainit
+    
+# Annotating Models
+
+Using the annotate gem from ctran. After changing models, execute:
+
+`annotate --exclude tests,fixtures,factories,serializers`    
