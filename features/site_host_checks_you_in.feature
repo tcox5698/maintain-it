@@ -4,7 +4,7 @@ Feature: Host checks a visitor in
   Scenario: Host checks in Visitor who is a new user
     Given a new visitor "visitor@example.com"
     Given I am logged in as a Site Host with a single Site "Home"
-    When I click "Check In a Visitor"
+    When I click "Check in a Visitor"
     And I select my site
     And I enter email "visitor@example.com" and click OK
     Then visitor "visitor@example.com" receives a site welcome email
@@ -21,4 +21,6 @@ Feature: Host checks a visitor in
 
 #  Scenario: Visitor can not edit Site
 
+# check in visitor only available to site hosts
+# only shows sites where i am master
 
