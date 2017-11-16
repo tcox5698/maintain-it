@@ -58,12 +58,14 @@ RSpec.describe CheckInController, type: :controller do
           post :check_in_visitor, params: { selected_site: site.id, email: "testvisitor@example.com" }
           @result_user = User.find_by_email("testvisitor@example.com")
         end
+        
         describe "the newly created user" do
           it "has the input email" do
             expect(@result_user).not_to be_nil
             expect(@result_user.email).to eq "testvisitor@example.com"
           end
         end
+
         describe "the newly created site member" do
           it "user is the newly created member" do
             expect(@result_user.site_members.size).to eq 1

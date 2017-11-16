@@ -6,12 +6,10 @@ class CheckInController < ApplicationController
   end
 
   def check_in_visitor
-
     email, site_id = check_in_visitor_params
 
     site = Site.find(site_id)
     site.check_in_new_user(email: email)
-
 
     redirect_to site_members_url
   end
