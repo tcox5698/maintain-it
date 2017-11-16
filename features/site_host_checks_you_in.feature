@@ -3,8 +3,9 @@ Feature: Host checks a visitor in
 
   Scenario: Host checks in Visitor who is a new user
     Given a new visitor "visitor@example.com"
-    Given I am logged in as a Site Host with a single Site "Home"
+    Given I am logged in as a Site Host with a single Site "My Beautiful Home"
     When I click "Check in a Visitor"
+    Then I see my sites
     And I select my site
     And I enter email "visitor@example.com" and click OK
     Then visitor "visitor@example.com" receives a site welcome email
