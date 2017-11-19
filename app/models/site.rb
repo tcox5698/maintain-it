@@ -8,11 +8,13 @@ class Site < ApplicationRecord
     user = User.new(email: email,
                     password: random_password,
                     password_confirmation: random_password)
+    user.skip_confirmation!
     user.save
 
     member = SiteMember.new(user: user, site: self, nick_name: "blah")
 
     member.save
+    user.send_confirmation_instructions
   end
 end
 
