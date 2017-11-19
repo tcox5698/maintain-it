@@ -1,0 +1,28 @@
+<p>Welcome to MaintainIt!</p>
+
+<p>MaintainIt helps hosts and visitors take care of the place together!</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>Your email <%= @email %> has received an invitation from one of the hosts for you to
+  help out with the following sites:</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @user.site_members.each do |member| %>
+      <tr>
+        <td><%= member.site.name %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
