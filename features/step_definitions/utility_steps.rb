@@ -9,3 +9,14 @@ end
 Given(/^I am logged in as '(.*)'$/) do |user_name|
   register_and_login(user_name)
 end
+
+
+Given(/^a new visitor "([^"]*)"$/) do |email|
+  expect(User.find_by_email(email)).to be_nil
+end
+
+
+Given(/^I am logged in as a Site Host with a single Site "([^"]*)"$/) do |site_name|
+  register_and_login("sitehost@example.com")
+  create_site(site_name)
+end
