@@ -26,8 +26,7 @@ class SitesController < ApplicationController
   # POST /sites.json
   def create
     @site = Site.new(site_params)
-    nick_name = current_user.email.split("@")[0]
-    site_member_attrs = { user: current_user, site: @site, nick_name: nick_name }
+    site_member_attrs = { user: current_user, site: @site }
     @site_member = SiteMember.new(attributes=site_member_attrs)
 
     respond_to do |format|

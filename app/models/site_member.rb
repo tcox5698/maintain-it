@@ -1,6 +1,14 @@
 class SiteMember < ApplicationRecord
   belongs_to :user
   belongs_to :site
+
+  after_initialize :populate_nick_name
+
+  def populate_nick_name
+    if self.user
+      self.nick_name = self.user.email.split("@")[0] if self.nick_name.blank?
+    end
+  end
 end
 
 # == Schema Information
