@@ -23,5 +23,5 @@ Feature: Host checks a visitor in
 #  Scenario: Visitor can not edit Site
 
 # check in visitor only available to site hosts
-# only shows sites where i am master
+# only shows sites where i am host
 

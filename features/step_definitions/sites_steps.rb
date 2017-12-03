@@ -59,3 +59,9 @@ end
 Then(/^I see the site '(.*)'$/) do |site_name|
   expect(page).to have_content "Name: #{site_name}"
 end
+
+
+Given(/^the following users have the following roles and statuses at the following sites$/) do |table|
+  # table is a table.hashes.keys # => [:user, :site, :role, :status]
+  pending
+end
