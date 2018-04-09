@@ -8,8 +8,8 @@ RSpec.describe SiteMembersController, type: :controller do
   let(:valid_attributes) {
     {
       nick_name: 'fake nick name',
-      user_id: FactoryGirl.create(:user).id,
-      site_id: FactoryGirl.create(:site).id
+      user_id: FactoryBot.create(:user).id,
+      site_id: FactoryBot.create(:site).id
     }
   }
 

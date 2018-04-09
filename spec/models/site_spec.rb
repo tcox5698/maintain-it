@@ -6,12 +6,12 @@ RSpec.describe Site, type: :model do
   end
 
   it 'lists its site_members' do
-    site_member = FactoryGirl.create(:site_member)
+    site_member = FactoryBot.create(:site_member)
     expect(Site.first.site_members).to eq [site_member]
   end
 
   describe "check_in_new_user" do
-    let(:site) {FactoryGirl.create(:site)}
+    let(:site) {FactoryBot.create(:site)}
     let(:input_email) {"input@example.com"}
 
     before do

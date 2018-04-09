@@ -4,12 +4,12 @@ RSpec.describe User, type: :model do
   describe "#sites" do
     context "when multiple users have different sites" do
       it "returns only the sites for the user" do
-        user_bob = FactoryGirl.create(:user, email: 'bob@example.com')
-        user_nancy = FactoryGirl.create(:user, email: 'nancy@example.com')
+        user_bob = FactoryBot.create(:user, email: 'bob@example.com')
+        user_nancy = FactoryBot.create(:user, email: 'nancy@example.com')
 
-        bob_site = FactoryGirl.create(:site, name: "bob site")
-        nancy_site = FactoryGirl.create(:site, name: "nancy site")
-        bob_and_nancy_site = FactoryGirl.create(:site, name: "bob and nancy site")
+        bob_site = FactoryBot.create(:site, name: "bob site")
+        nancy_site = FactoryBot.create(:site, name: "nancy site")
+        bob_and_nancy_site = FactoryBot.create(:site, name: "bob and nancy site")
 
         SiteMember.create(attributes={ user: user_bob, site: bob_site })
         SiteMember.create(attributes={ user: user_nancy, site: nancy_site })

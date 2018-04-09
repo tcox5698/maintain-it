@@ -4,8 +4,8 @@ RSpec.describe "site_members/edit", type: :view do
   before(:each) do
     @site_member = assign(:site_member, SiteMember.create!(
       :nick_name => 'Fake Nick Name',
-      :user => FactoryGirl.create(:user),
-      :site => FactoryGirl.create(:site)
+      :user => FactoryBot.create(:user),
+      :site => FactoryBot.create(:site)
     ))
   end
 
