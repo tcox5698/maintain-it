@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20171210214700) do
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role", null: false
+    t.string "role", default: "visitor", null: false
     t.index ["site_id"], name: "index_site_members_on_site_id"
     t.index ["user_id"], name: "index_site_members_on_user_id"
   end

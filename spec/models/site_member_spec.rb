@@ -5,7 +5,7 @@ RSpec.describe SiteMember, type: :model do
   let(:site) {FactoryGirl.create(:site)}
 
   context 'when created without nickname' do
-    subject {SiteMember.new(attributes={ user: user, site: site })}
+    subject {SiteMember.create!(attributes={ user: user, site: site })}
 
     it 'has the nickname deduced from the email' do
       expect(subject.nick_name).to eq 'factorygirl'
@@ -20,7 +20,9 @@ RSpec.describe SiteMember, type: :model do
   end
 
   context 'when created with user and site and nickname' do
-    subject {SiteMember.new(attributes={ user: user, site: site, nick_name: 'fake nickname' })}
+    subject {
+      SiteMember.create!(attributes={ user: user, site: site, nick_name: 'fake nickname' })
+    }
 
     it 'has the input site' do
       expect(subject.site).to be site

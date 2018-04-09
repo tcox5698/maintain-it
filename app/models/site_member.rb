@@ -2,7 +2,7 @@ class SiteMember < ApplicationRecord
   belongs_to :user
   belongs_to :site
 
-  before_create :populate_defaults
+  after_initialize :populate_defaults
 
   validates_presence_of :role
 
@@ -36,7 +36,7 @@ end
 #  site_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  role       :string           not null
+#  role       :string           default("visitor"), not null
 #
 # Indexes
 #
