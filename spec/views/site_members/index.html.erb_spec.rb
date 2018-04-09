@@ -5,13 +5,13 @@ RSpec.describe "site_members/index", type: :view do
     assign(:site_members, [
       SiteMember.create!(
         :nick_name => "Nick Name",
-        :user => FactoryGirl.create(:user),
-        :site => FactoryGirl.create(:site)
+        :user => FactoryBot.create(:user),
+        :site => FactoryBot.create(:site)
       ),
       SiteMember.create!(
         :nick_name => "Nick Name 2",
-        :user => FactoryGirl.create(:user, email: 'different@example.com'),
-        :site => FactoryGirl.create(:site)
+        :user => FactoryBot.create(:user, email: 'different@example.com'),
+        :site => FactoryBot.create(:site)
       )
     ])
   end
