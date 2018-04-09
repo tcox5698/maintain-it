@@ -1,10 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe SiteMember, type: :model do
-  context 'when created with user and site' do
-    let(:user) {FactoryGirl.create(:user)}
-    let(:site) {FactoryGirl.create(:site)}
-    subject {SiteMember.new(attributes={ user: user, site: site, nick_name: 'fake nickname' })}
+  let(:user) {FactoryGirl.create(:user)}
+  let(:site) {FactoryGirl.create(:site)}
+
+  context 'when created without nickname' do
+    subject {SiteMember.create!(attributes={ user: user, site: site })}
+
+    it 'has the nickname deduced from the email' do
+      expect(subject.nick_name).to eq 'factorygirl'
+    end
+  end
+
+  it 'requires a site' do
+    expected_message = 'Validation failed: User must exist, Site must exist'
+    expect {
+      SiteMember.create!(attributes={ nick_name: 'fake nickname' })
+    }.to raise_error expected_message
+  end
+
+  context 'when created with user and site and nickname' do
+    subject {
+      SiteMember.create!(attributes={ user: user, site: site, nick_name: 'fake nickname' })
+    }
 
     it 'has the input site' do
       expect(subject.site).to be site
@@ -18,11 +36,26 @@ RSpec.describe SiteMember, type: :model do
       expect(subject.nick_name).to eq 'fake nickname'
     end
 
-    it 'requires a site' do
-      expected_message = 'Validation failed: User must exist, Site must exist'
-      expect {
-        SiteMember.create!(attributes={ nick_name: 'fake nickname' })
-      }.to raise_error expected_message
+    it 'has the role "visitor"' do
+      expect(subject.role).to eq 'visitor'
+    end
+  end
+
+  context 'when created with role "host"' do
+    subject {SiteMember.new(attributes={ user: user, site: site, nick_name: 'fake nickname', role: 'host' })}
+
+    it 'has the role "host"' do
+      expect(subject.role).to eq 'host'
+    end
+  end
+
+  context 'when updated to have nil role' do
+    it 'raises error"' do
+      expected_message = "Validation failed: Role can't be blank"
+      member = SiteMember.create!(attributes={ nick_name: 'fake nickname', site: site, user: user })
+      member.role = nil
+
+      expect {member.save!}.to raise_error expected_message
     end
   end
 end

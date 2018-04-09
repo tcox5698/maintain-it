@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+raise "Only seed development environments" unless Rails.env.development?
+
+site = Site.create!(name: 'Seed Site')
+user = User.create!(email: 'localdev@example.com', password: 'Password7!', password_confirmation: 'Password7!')
+site_member = SiteMember.create!(site: site, user: user)

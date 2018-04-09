@@ -19,3 +19,17 @@ Feature: Manage sites
     Then I can change the name of site 'Nancy Site' to 'new site name'
     When I visit the Sites page
     Then I see 'new site name' in the list of Sites
+
+#  Scenario: Users see their roles and statuses at their sites
+#    Given the following users have the following roles and statuses at the following sites
+#      | user              | site        | role    | status  |
+#      | bob@example.com   | BobPlace1   | host    | present |
+#      | nancy@example.com | NancyPlace1 | host    | present |
+#      | nancy@example.com | BobPlace1   | visitor | absent  |
+#    Then 'bob@example.com' sees the following list on the Sites page
+#      | Site      | Role | Status  |
+#      | BobPlace1 | Host | Present |
+#    And 'nancy@example.com' sees the following list on the Sites page
+#      | Site        | Role    | Status  |
+#      | NancyPlace1 | Host    | Present |
+#      | BobPlace1   | Visitor |         |
