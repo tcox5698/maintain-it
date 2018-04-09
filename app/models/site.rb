@@ -11,7 +11,7 @@ class Site < ApplicationRecord
     user.skip_confirmation!
     user.save
 
-    member = SiteMember.new(user: user, site: self, nick_name: "blah")
+    member = SiteMember.new(user: user, site: self)
 
     member.save
     user.send_confirmation_instructions
