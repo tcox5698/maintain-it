@@ -39,6 +39,10 @@ RSpec.describe SiteMember, type: :model do
     it 'has the role "visitor"' do
       expect(subject.role).to eq 'visitor'
     end
+
+    it 'has the status "absent"' do
+      expect(subject.status).to eq 'absent'
+    end
   end
 
   context 'when created with role "host"' do
