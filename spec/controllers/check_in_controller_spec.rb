@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe CheckInController, type: :controller do
-  let(:user) {FactoryGirl.create(:user)}
-  let(:site_member) {FactoryGirl.create(:site_member, user: user)}
+  let(:user) {FactoryBot.create(:user)}
+  let(:site_member) {FactoryBot.create(:site_member, user: user)}
   let(:site) {site_member.site}
-  let(:second_site) {FactoryGirl.create(:site, name: 'my other site')}
-  let(:second_site_member) {FactoryGirl.create(:site_member, user: user, site: second_site)}
+  let(:second_site) {FactoryBot.create(:site, name: 'my other site')}
+  let(:second_site_member) {FactoryBot.create(:site_member, user: user, site: second_site)}
 
   before do
     expect(second_site_member.user).to eq user

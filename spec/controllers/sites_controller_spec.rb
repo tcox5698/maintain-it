@@ -1,23 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe SitesController, type: :controller do
-  let(:user) {FactoryGirl.create(:user)}
+  let(:user) {FactoryBot.create(:user)}
   let(:valid_attributes) {{ name: 'fake site name' }}
   let(:invalid_attributes) {{ name: '' }}
   let(:valid_session) {{}}
 
   context "some users and sites exist" do
-    let(:other_user) {FactoryGirl.create(:user, email: "otheruser@example.com")}
-    let(:other_site) {FactoryGirl.create(:site, name: "other site")}
-    let(:other_site_member) {FactoryGirl.create(:site_member, user: other_user, site: other_site)}
-    let(:site_member) {FactoryGirl.create(:site_member, user: user)}
+    let(:other_user) {FactoryBot.create(:user, email: "otheruser@example.com")}
+    let(:other_site) {FactoryBot.create(:site, name: "other site")}
+    let(:other_site_member) {FactoryBot.create(:site_member, user: other_user, site: other_site)}
+    let(:site_member) {FactoryBot.create(:site_member, user: user)}
     let(:site) {site_member.site}
 
     before do
-      expect(site.name).to eq 'FactoryGirlSite'
+      expect(site.name).to eq 'FactoryBotSite'
       expect(other_site_member.site.name).to eq 'other site'
 
-      expect(site_member.nick_name).to eq 'FactoryGirlSiteMember'
+      expect(site_member.nick_name).to eq 'FactoryBotSiteMember'
       expect(Site.count).to eq 2
       expect(SiteMember.count).to eq 2
       expect(User.count).to eq 2
@@ -168,7 +168,7 @@ RSpec.describe SitesController, type: :controller do
           expect(SiteMember.count).to eq 1
           expect(SiteMember.first.site).to eq Site.first
           expect(SiteMember.first.user).to eq User.first
-          expect(SiteMember.first.nick_name).to eq 'factorygirl'
+          expect(SiteMember.first.nick_name).to eq 'factorybot'
         end
 
         it "redirects to the created site" do

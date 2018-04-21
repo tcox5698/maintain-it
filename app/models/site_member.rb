@@ -37,6 +37,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role       :string           default("visitor"), not null
+#  status     :string           default("absent"), not null
 #
 # Indexes
 #

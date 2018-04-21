@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :site_member do
-    nick_name 'FactoryGirlSiteMember'
+    nick_name 'FactoryBotSiteMember'
     site
     user 
   end

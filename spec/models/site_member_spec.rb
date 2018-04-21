@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe SiteMember, type: :model do
-  let(:user) {FactoryGirl.create(:user)}
-  let(:site) {FactoryGirl.create(:site)}
+  let(:user) {FactoryBot.create(:user)}
+  let(:site) {FactoryBot.create(:site)}
 
   context 'when created without nickname' do
     subject {SiteMember.create!(attributes={ user: user, site: site })}
 
     it 'has the nickname deduced from the email' do
-      expect(subject.nick_name).to eq 'factorygirl'
+      expect(subject.nick_name).to eq 'factorybot'
     end
   end
 
@@ -38,6 +38,10 @@ RSpec.describe SiteMember, type: :model do
 
     it 'has the role "visitor"' do
       expect(subject.role).to eq 'visitor'
+    end
+
+    it 'has the status "absent"' do
+      expect(subject.status).to eq 'absent'
     end
   end
 
