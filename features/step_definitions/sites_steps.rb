@@ -9,7 +9,7 @@ end
 def create_site(site_name)
   visit_sites_page
   click_link 'New Site'
-  page.fill_in 'Name', :with => site_name
+  page.fill_in 'site_name', :with => site_name
   page.click_on 'Create Site'
   expect(page).to have_content('Site was successfully created.')
 end
@@ -30,7 +30,7 @@ end
 
 Then(/^I can change the name of site '(.*)' to '(.*)'$/) do |site_name, new_site_name|
   click_link 'Edit'
-  page.fill_in 'Name', :with => "#{new_site_name}"
+  page.fill_in 'site_name', :with => "#{new_site_name}"
   click_button 'Update Site'
   expect(page).to have_content('Site was successfully updated.')
   visit_sites_page
