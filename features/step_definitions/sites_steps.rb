@@ -63,5 +63,14 @@ end
 
 Given(/^the following users have the following roles and statuses at the following sites$/) do |table|
   # table is a table.hashes.keys # => [:user, :site, :role, :status]
-  pending
+  table.hashes.each do |row|
+    user = User.create!(email: row[:user], password: 'Password7!', password_confirmation: 'Password7!')
+    site = Site.find_by_name(row[:site])
+    unless site
+      site = Site.create!(name: row[:site])
+    end
+    SiteMember.create!(site: site, user: user, role: row[:role], status: row[:status])
+
+
+  end
 end
