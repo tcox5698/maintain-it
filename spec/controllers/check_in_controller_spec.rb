@@ -28,7 +28,7 @@ RSpec.describe CheckInController, type: :controller do
       end
 
       it 'responds OK' do
-        expect(response).to have_http_status(:success)
+        expect(response).to have_http_status(200)
       end
 
       #TODO only the users sites where they are the host
