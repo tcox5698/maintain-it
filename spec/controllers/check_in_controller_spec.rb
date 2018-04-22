@@ -53,10 +53,38 @@ RSpec.describe CheckInController, type: :controller do
         allow(controller).to receive(:current_user).and_return(user)
       end
 
+      context "user email already exists" do
+        let(:other_existing_user) {FactoryBot.create(:user, email: "otherexistinguser@example.com")}
+
+        it "raises an exception and creates NO sitemember" do
+          expect {
+            post :check_in_visitor, params: { selected_site: site.id, email: other_existing_user.email }
+          }.to raise_error ActiveRecord::RecordInvalid
+
+          checked = false
+
+          SiteMember.all.each do |member|
+
+            expect(member.user).not_to be_nil
+            checked = true
+          end
+
+          expect(checked).to be_truthy
+        end
+      end
+
       context "valid site id and email params" do
         before do
           post :check_in_visitor, params: { selected_site: site.id, email: "testvisitor@example.com" }
           @result_user = User.find_by_email("testvisitor@example.com")
+        end
+
+        it "redirects to site members list" do
+          expect(response).to redirect_to "/site_members"
+        end
+
+        it "produces no error messages" do
+          expect(flash[:alert]).to be_nil
         end
 
         describe "the newly created user" do
