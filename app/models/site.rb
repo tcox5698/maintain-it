@@ -9,7 +9,7 @@ class Site < ApplicationRecord
                     password: random_password,
                     password_confirmation: random_password)
     user.skip_confirmation!
-    user.save
+    user.save!
 
     member = SiteMember.new(user: user, site: self)
 
