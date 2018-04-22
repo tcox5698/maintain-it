@@ -164,11 +164,28 @@ RSpec.describe SitesController, type: :controller do
           expect(Site.count).to eq 1
         end
 
-        it "creates a new SiteMember related to the Site and the User" do
+        it "creates a new SiteMember" do
           expect(SiteMember.count).to eq 1
-          expect(SiteMember.first.site).to eq Site.first
-          expect(SiteMember.first.user).to eq User.first
-          expect(SiteMember.first.nick_name).to eq 'factorybot'
+        end
+
+        describe "the new SiteMember" do
+          subject {SiteMember.first}
+
+          it "is related to the site" do
+            expect(subject.site).to eq Site.first
+          end
+          it "is related to the user" do
+            expect(subject.user).to eq user
+          end
+          it "has a nickname from the users email" do
+            expect(subject.nick_name).to eq "factorybot"
+          end
+          it "has role of host" do
+            expect(subject.role).to eq "host"
+          end
+          it "has status present" do
+            expect(subject.status).to eq "present"
+          end
         end
 
         it "redirects to the created site" do

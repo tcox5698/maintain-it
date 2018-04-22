@@ -10,9 +10,9 @@ Feature: Host checks a visitor in
     And I enter email "visitor@example.com" and click OK
     Then visitor "visitor@example.com" receives a site welcome email
     And I see the following Site Members of Site "Home"
-      | Name  | Email               | Role        | Status  |
-      | Host  | host@example.com    | Site Host   | On Site |
-      | Nancy | visitor@example.com | Site Member | On Site |
+      | Name    | Email               | Role    | Status  |
+      | Host    | host@example.com    | Host    | Present |
+      | Visitor | visitor@example.com | Visitor | Present |
 
 #  Scenario: host checks in an existing user but new Site Member
 #

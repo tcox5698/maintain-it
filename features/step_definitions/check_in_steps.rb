@@ -35,7 +35,9 @@ end
 And(/^I see the following Site Members of Site "([^"]*)"$/) do |site_name, table|
   # table is a table.hashes.keys # => [:Name, :Email, :Role, :Status]
   table.hashes.find do | row |
-    expected_email = row[:Email]
-    expect(page).to have_content(expected_email)
+    expect(page).to have_content(row[:Email])
+    expect(page).to have_content(row[:Name])
+    expect(page).to have_content(row[:Role])
+    expect(page).to have_content(row[:Status])
   end
 end

@@ -1,4 +1,4 @@
-class SiteMembersController < ApplicationController
+class SiteMembersController < AuthedController
   before_action :set_site_member, only: [:show, :edit, :update, :destroy]
 
   # GET /site_members

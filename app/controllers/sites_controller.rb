@@ -1,6 +1,5 @@
-class SitesController < ApplicationController
+class SitesController < AuthedController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /sites
   # GET /sites.json
@@ -28,6 +27,8 @@ class SitesController < ApplicationController
     @site = Site.new(site_params)
     site_member_attrs = { user: current_user, site: @site }
     @site_member = SiteMember.new(attributes=site_member_attrs)
+    @site_member.role = "host"
+    @site_member.status = "present"
 
     respond_to do |format|
       if @site.save and @site_member.save

@@ -11,4 +11,8 @@ raise "Only seed development environments" unless Rails.env.development?
 
 site = Site.create!(name: 'Seed Site')
 user = User.create!(email: 'localdev@example.com', password: 'Password7!', password_confirmation: 'Password7!')
-site_member = SiteMember.create!(site: site, user: user)
+user.skip_confirmation!
+user.save()
+SiteMember.create!(site: site, user: user, role: 'host', status: 'present')
+
+site.check_in_new_user(email: 'localvisitor@example.com')
