@@ -179,7 +179,7 @@ RSpec.describe SitesController, type: :controller do
       context "with invalid params" do
         it "returns a success response (i.e. to display the 'new' template)" do
           post :create, params: { site: invalid_attributes }, session: valid_session
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
     end
