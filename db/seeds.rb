@@ -9,6 +9,8 @@
 
 raise "Only seed development environments" unless Rails.env.development?
 
+ActionMailer::Base.perform_deliveries = false
+
 site = Site.create!(name: 'Seed Site')
 user = User.create!(email: 'localdev@example.com', password: 'Password7!', password_confirmation: 'Password7!')
 user.skip_confirmation!

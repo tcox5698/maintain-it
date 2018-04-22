@@ -15,6 +15,7 @@ Feature: Host checks a visitor in
       | Visitor | visitor@example.com | Visitor | Present |
 
 #  Scenario: host checks in an existing user but new Site Member
+  
 #
 #  Scenario: host checks in a Visitor who is already a Site Member
 
