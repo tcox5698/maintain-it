@@ -1,6 +1,4 @@
-class CheckInController < ApplicationController
-  before_action :authenticate_user!
-
+class CheckInController < AuthedController
   def start_visitor
     @sites = current_user.sites
   end

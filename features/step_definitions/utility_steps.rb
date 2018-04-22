@@ -17,6 +17,6 @@ end
 
 
 Given(/^I am logged in as a Site Host with a single Site "([^"]*)"$/) do |site_name|
-  register_and_login("sitehost@example.com")
+  register_and_login("host@example.com")
   create_site(site_name)
 end

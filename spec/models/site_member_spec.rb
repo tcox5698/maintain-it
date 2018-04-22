@@ -4,6 +4,11 @@ RSpec.describe SiteMember, type: :model do
   let(:user) {FactoryBot.create(:user)}
   let(:site) {FactoryBot.create(:site)}
 
+  it 'validates user is present' do
+    expect {SiteMember.create!(attributes={ site: site })}.to raise_error 'Validation failed: User must exist'
+  end
+
+
   context 'when created without nickname' do
     subject {SiteMember.create!(attributes={ user: user, site: site })}
 
