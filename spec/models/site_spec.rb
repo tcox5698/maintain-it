@@ -15,7 +15,7 @@ RSpec.describe Site, type: :model do
     let(:input_email) {"input@example.com"}
 
     before do
-      site.check_in_new_user(email:input_email)
+      site.check_in_user(email:input_email)
     end
 
     it "creates a new user" do

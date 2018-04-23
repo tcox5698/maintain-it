@@ -2,7 +2,7 @@
 Feature: Host checks a visitor in
 
   Scenario: Host checks in Visitor who is a new user
-    Given a new visitor "visitor@example.com"
+    Given a new user "visitor@example.com"
     Given I am logged in as a Site Host with a single Site "My Beautiful Home"
     When I click "Check in a Visitor"
     Then I see my sites
@@ -14,7 +14,16 @@ Feature: Host checks a visitor in
       | Host    | host@example.com    | Host    | Present |
       | Visitor | visitor@example.com | Visitor | Present |
 
-#  Scenario: host checks in an existing user but new Site Member
+  Scenario: host checks in an existing user but new Site Member
+    Given an existing user "existinguser@example.com"
+    Given I am logged in as a Site Host with a single Site "My Beautiful Home"
+    When I click "Check in a Visitor"
+    And I select my site
+    And I enter email "existinguser@example.com" and click OK
+    And I see the following Site Members of Site "Home"
+      | Name    | Email                    | Role    | Status  |
+      | Host    | host@example.com         | Host    | Present |
+      | Visitor | existinguser@example.com | Visitor | Present |
   
 #
 #  Scenario: host checks in a Visitor who is already a Site Member
@@ -25,4 +34,5 @@ Feature: Host checks a visitor in
 
 # check in visitor only available to site hosts
 # only shows sites where i am host
-
+# site members list only shows for current site
+# site members list only shows for current user

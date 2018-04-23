@@ -3,18 +3,27 @@ class Site < ApplicationRecord
 
   has_many :site_members, dependent: :destroy
 
-  def check_in_new_user(email:)
+  def check_in_user(email:)
+    user = User.find_by_email(email)
+
+    user = create_user(email) unless user
+
+    member = SiteMember.new(user: user, site: self)
+
+    member.save
+    user.send_confirmation_instructions
+  end
+
+  private
+
+  def create_user(email)
     random_password = SecureRandom.hex
     user = User.new(email: email,
                     password: random_password,
                     password_confirmation: random_password)
     user.skip_confirmation!
     user.save!
-
-    member = SiteMember.new(user: user, site: self)
-
-    member.save
-    user.send_confirmation_instructions
+    user
   end
 end
 

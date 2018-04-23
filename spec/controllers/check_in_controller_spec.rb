@@ -53,23 +53,34 @@ RSpec.describe CheckInController, type: :controller do
         allow(controller).to receive(:current_user).and_return(user)
       end
 
-      context "user email already exists" do
+      context "user email already exists but is not a member" do
         let(:other_existing_user) {FactoryBot.create(:user, email: "otherexistinguser@example.com")}
 
-        it "raises an exception and creates NO sitemember" do
-          expect {
-            post :check_in_visitor, params: { selected_site: site.id, email: other_existing_user.email }
-          }.to raise_error ActiveRecord::RecordInvalid
+        before do
+          post :check_in_visitor, params: { selected_site: site.id, email: "otherexistinguser@example.com" }
+          @result_user = User.find_by_email("otherexistinguser@example.com")
+        end
 
-          checked = false
+        it "redirects to site members list" do
+          expect(response).to redirect_to "/site_members"
+        end
 
-          SiteMember.all.each do |member|
+        it "produces no error messages" do
+          expect(flash[:alert]).to be_nil
+        end
 
-            expect(member.user).not_to be_nil
-            checked = true
+        describe "the newly created site member" do
+          it "user is the existing user" do
+            expect(@result_user.site_members.size).to eq 1
           end
 
-          expect(checked).to be_truthy
+          it "site is the site of the selected id" do
+            expect(@result_user.site_members.first.site.id).to eq site.id
+          end
+
+          it "nickname is the first part of the email" do
+            expect(@result_user.site_members.first.nick_name).to eq "otherexistinguser"
+          end
         end
       end
 
@@ -85,13 +96,6 @@ RSpec.describe CheckInController, type: :controller do
 
         it "produces no error messages" do
           expect(flash[:alert]).to be_nil
-        end
-
-        describe "the newly created user" do
-          it "has the input email" do
-            expect(@result_user).not_to be_nil
-            expect(@result_user.email).to eq "testvisitor@example.com"
-          end
         end
 
         describe "the newly created site member" do
