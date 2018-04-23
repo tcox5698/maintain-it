@@ -7,7 +7,7 @@ class CheckInController < AuthedController
     email, site_id = check_in_visitor_params
 
     site = Site.find(site_id)
-    site.check_in_new_user(email: email)
+    site.check_in_user(email: email)
 
     redirect_to site_members_url
   end
