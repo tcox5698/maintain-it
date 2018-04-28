@@ -22,8 +22,6 @@ class SiteMember < ApplicationRecord
       self.nick_name = self.user.email.split("@")[0] if self.nick_name.blank?
     end
   end
-
-
 end
 
 # == Schema Information
@@ -41,8 +39,9 @@ end
 #
 # Indexes
 #
-#  index_site_members_on_site_id  (site_id)
-#  index_site_members_on_user_id  (user_id)
+#  index_site_members_on_site_id              (site_id)
+#  index_site_members_on_user_id              (user_id)
+#  index_site_members_on_user_id_and_site_id  (user_id,site_id) UNIQUE
 #
 # Foreign Keys
 #
