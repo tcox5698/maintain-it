@@ -24,11 +24,15 @@ RSpec.describe Site, type: :model do
         expect(user.email).to eq input_email
       end
 
-      describe "user" do
+      describe "user.site member.first" do
+        let(:actual_site_member) {User.find_by_email(input_email).site_members.first}
         it "has a site_member associated to the site" do
-          user = User.find_by_email(input_email)
-          actual_site = user.site_members.first.site
+          actual_site = actual_site_member.site
           expect(actual_site.id).to eq site.id
+        end
+
+        it "has status of present" do
+          expect(actual_site_member.status).to eq "present"
         end
       end
     end

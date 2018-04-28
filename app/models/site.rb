@@ -8,8 +8,15 @@ class Site < ApplicationRecord
 
     user = create_user(email) unless user
 
-    SiteMember.create!(user: user, site: self) unless
-      user.site_members.where(site_id: self.id).exists?
+    site_members_rel = user.site_members.where(site_id: self.id)
+    if site_members_rel.exists?
+      site_member = site_members_rel.first
+    else
+      site_member =SiteMember.new(user: user, site: self)
+    end
+
+    site_member.status = "present"
+    site_member.save!
 
     user.send_confirmation_instructions
   end

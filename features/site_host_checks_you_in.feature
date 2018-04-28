@@ -41,9 +41,11 @@ Feature: Host checks a visitor in
       | Name    | Email                    | Role    | Status  |
       | Host    | host@example.com         | Host    | Present |
       | Visitor | existinguser@example.com | Visitor | Present |
+
+# Scenario: no sites exist yet
   
 #
-#  Scenario: host checks in a Visitor who is already a Site Member
+#  Scenario: host checks in a Visitor who is already a Site Member at other site
 
 #  Scenario: Visitor can not check in other visitors
 
