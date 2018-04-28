@@ -41,17 +41,3 @@ Feature: Host checks a visitor in
       | Name    | Email                    | Role    | Status  |
       | Host    | host@example.com         | Host    | Present |
       | Visitor | existinguser@example.com | Visitor | Present |
-
-# Scenario: no sites exist yet
-  
-#
-#  Scenario: host checks in a Visitor who is already a Site Member at other site
-
-#  Scenario: Visitor can not check in other visitors
-
-#  Scenario: Visitor can not edit Site
-
-# check in visitor only available to site hosts
-# only shows sites where i am host
-# site members list only shows for current site
-# site members list only shows for current user
