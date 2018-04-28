@@ -41,3 +41,11 @@ And(/^I see the following Site Members of Site "([^"]*)"$/) do |site_name, table
     expect(page).to have_content(row[:Status])
   end
 end
+
+
+And(/^user "([^"]*)" is a member of Site "([^"]*)"$/) do |email, site_name|
+  site = Site.find_by_name(site_name)
+  user = User.find_by_email(email)
+
+  SiteMember.create!(site: site, user: user)
+end

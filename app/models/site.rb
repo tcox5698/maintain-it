@@ -8,9 +8,9 @@ class Site < ApplicationRecord
 
     user = create_user(email) unless user
 
-    member = SiteMember.new(user: user, site: self)
+    SiteMember.create!(user: user, site: self) unless
+      user.site_members.where(site_id: self.id).exists?
 
-    member.save
     user.send_confirmation_instructions
   end
 

@@ -48,14 +48,30 @@ RSpec.describe CheckInController, type: :controller do
     end
 
     context "as authenticated user" do
+      let(:other_existing_user) {FactoryBot.create(:user, email: "otherexistinguser@example.com")}
       before do
         allow(request.env['warden']).to receive(:authenticate!).and_return(user)
         allow(controller).to receive(:current_user).and_return(user)
       end
 
-      context "user email already exists but is not a member" do
-        let(:other_existing_user) {FactoryBot.create(:user, email: "otherexistinguser@example.com")}
+      context "user is already a member" do
+        let(:other_existing_site_member) {SiteMember.create!(site: site, user: other_existing_user)}
 
+        before do
+          post :check_in_visitor, params: { selected_site: site.id, email: "otherexistinguser@example.com" }
+          @result_user = User.find_by_email("otherexistinguser@example.com")
+        end
+
+        it "redirects to site members list" do
+          expect(response).to redirect_to "/site_members"
+        end
+
+        it "produces no error messages" do
+          expect(flash[:alert]).to be_nil
+        end
+      end
+
+      context "user already exists but is not a member" do
         before do
           post :check_in_visitor, params: { selected_site: site.id, email: "otherexistinguser@example.com" }
           @result_user = User.find_by_email("otherexistinguser@example.com")
