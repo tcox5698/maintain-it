@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_10_013738) do
+ActiveRecord::Schema.define(version: 2018_04_23_030001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_04_10_013738) do
     t.string "role", default: "visitor", null: false
     t.string "status", default: "absent", null: false
     t.index ["site_id"], name: "index_site_members_on_site_id"
+    t.index ["user_id", "site_id"], name: "index_site_members_on_user_id_and_site_id", unique: true
     t.index ["user_id"], name: "index_site_members_on_user_id"
   end
 
