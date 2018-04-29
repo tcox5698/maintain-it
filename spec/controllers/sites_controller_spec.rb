@@ -16,8 +16,8 @@ RSpec.describe SitesController, type: :controller do
     before do
       expect(site.name).to eq 'FactoryBotSite'
       expect(other_site_member.site.name).to eq 'other site'
-
       expect(site_member.nick_name).to eq 'FactoryBotSiteMember'
+
       expect(Site.count).to eq 2
       expect(SiteMember.count).to eq 2
       expect(User.count).to eq 2

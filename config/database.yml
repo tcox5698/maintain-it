@@ -22,7 +22,7 @@ development:
 # Do not set this db to the same as development or production.
 test: &test
   <<: *default
-  database: maintainit_test
+  database: maintainit_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default

@@ -7,7 +7,10 @@ When(/^I log in with username '(.*)' and password '(.*)'$/) do |user_name, passw
 end
 
 Given(/^I am logged in as '(.*)'$/) do |user_name|
-  register_and_login(user_name)
+  make_a_user(user_name)
+  visit "/"
+  click_link "Login"
+  log_in(user_name, "Password7!")
 end
 
 
@@ -17,7 +20,10 @@ end
 
 
 Given(/^I am logged in as a Site Host with a single Site "([^"]*)"$/) do |site_name|
-  register_and_login("host@example.com")
+  make_a_user("host@example.com")
+  visit "/"
+  click_link "Login"
+  log_in("host@example.com", "Password7!")
   create_site(site_name)
 end
 
