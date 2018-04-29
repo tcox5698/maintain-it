@@ -64,13 +64,43 @@ end
 Given(/^the following users have the following roles and statuses at the following sites$/) do |table|
   # table is a table.hashes.keys # => [:user, :site, :role, :status]
   table.hashes.each do |row|
-    user = User.create!(email: row[:user], password: 'Password7!', password_confirmation: 'Password7!')
+    user = User.find_by_email(row[:user])
+    unless user
+      user = User.create!(email: row[:user], password: 'Password7!', password_confirmation: 'Password7!')
+      user.skip_confirmation!
+      user.save
+    end
     site = Site.find_by_name(row[:site])
     unless site
       site = Site.create!(name: row[:site])
     end
     SiteMember.create!(site: site, user: user, role: row[:role], status: row[:status])
+  end
+end
 
+
+Then(/^user '(.*)' sees the following list on the Sites page$/) do |email, table|
+  # table is a table.hashes.keys # => [:Site, :Role, :Present]
+  visit '/'
+  click_link "Login"
+  log_in(email, "Password7!")
+  expect(page).to have_content email
+  click_link "Sites"
+
+  expect(page).to have_content "Sites"
+  
+  actual_rows = page.all(:xpath, "//tbody/tr")
+
+  expect(actual_rows.to_a.size).to eq table.hashes.size
+
+  table.hashes.each do |expected|
+    actual = actual_rows.select{|r|r.has_content?(expected[:Site])}
+    expect(actual).not_to be_nil
+
+    expect(actual).to have_content expected[:Role]
+    expect(actual).to have_content expected[:Present]
 
   end
+  
+  click_link "Logout"
 end
