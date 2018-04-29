@@ -39,7 +39,8 @@ end
 
 And(/^I can delete the site '(.*)'$/) do |site_name|
   visit_sites_page
-  destroy_link = page.find(:xpath, "//tbody/tr[td[.='#{site_name}']]/td[4]/a")
+  # sleep(120)
+  destroy_link = page.find(:xpath, "//tbody/tr[td[.='#{site_name}']]/td[6]/a")
   accept_confirm do
     destroy_link.click
   end
