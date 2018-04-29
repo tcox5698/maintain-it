@@ -4,7 +4,7 @@ class SitesController < AuthedController
   # GET /sites
   # GET /sites.json
   def index
-    @sites = current_user.sites
+    @site_members = current_user.site_members
   end
 
   # GET /sites/1

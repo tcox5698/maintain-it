@@ -59,14 +59,14 @@ RSpec.describe SitesController, type: :controller do
 
       context "as authenticated user" do
         before do
-          allow(request.env['warden']).to receive(:authenticate!).and_return(user)
+          allow(request.env['warden']).to receive(:authenticate!).and_return(user.reload)
           allow(controller).to receive(:current_user).and_return(user)
         end
 
-        it "renders only the users sites" do
+        it "renders only the users site_members" do
           get :index
           expect(response.code).to eq "200"
-          expect(assigns(:sites).to_ary).to eq [site]
+          expect(assigns(:site_members).to_ary).to eq [site_member]
         end
       end
     end
