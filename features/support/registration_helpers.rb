@@ -38,6 +38,12 @@ module RegistrationHelper
     click_link 'Logout'
     expect(page).to have_content('Signed out successfully.')
   end
+
+  def make_a_user(email)
+    user = User.create!(email: email, password: "Password7!", password_confirmation: "Password7!")
+    user.skip_confirmation!
+    user.save
+  end
 end
 
 World(RegistrationHelper)

@@ -36,14 +36,10 @@ And(/^I see the following Site Members of Site "([^"]*)"$/) do |site_name, table
   # table is a table.hashes.keys # => [:Name, :Email, :Role, :Status]
 
   table.hashes.each do |expected_row|
-    puts "expected row: #{expected_row.inspect}"
     expect(page).to have_content expected_row[:Email]
+    actual_row = find(:xpath, "//tbody/tr[td[contains(.,'#{expected_row[:Email]}')]]")
 
-    actual_rows = page.all(:xpath, "//tbody/tr")
-    actual_row = actual_rows.select {|r| r.has_content?(expected_row[:Email])}.take(1).first
     expect(actual_row).not_to be_nil
-
-    puts "actual row: #{actual_row.text}"
 
     expect(actual_row).to have_content(expected_row[:Email])
     expect(actual_row).to have_content(expected_row[:Name])

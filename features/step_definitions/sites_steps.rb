@@ -47,8 +47,13 @@ And(/^I can delete the site '(.*)'$/) do |site_name|
   expect(page).to have_content('Site was successfully destroyed.')
 end
 
-Given(/^'(.*)' has created a site '(.*)'$/) do |user_name, site_name|
-  register_and_login(user_name)
+
+
+Given(/^'(.*)' has created a site '(.*)'$/) do |email, site_name|
+  make_a_user(email)
+  visit '/'
+  click_link 'Login'
+  log_in(email, "Password7!")
   create_site(site_name)
   logout
 end
@@ -89,18 +94,13 @@ Then(/^user '(.*)' sees the following list on the Sites page$/) do |email, table
   click_link "Sites"
 
   expect(page).to have_content "Sites"
-  
-  actual_rows = page.all(:xpath, "//tbody/tr")
-
-  expect(actual_rows.to_a.size).to eq table.hashes.size
 
   table.hashes.each do |expected|
-    actual = actual_rows.select{|r|r.has_content?(expected[:Site])}.first
+    expect(page).to have_content expected[:Site]
+    actual = find(:xpath, "//tbody/tr[td[contains(.,'#{expected[:Site]}')]]")
     expect(actual).not_to be_nil
-
     expect(actual).to have_content expected[:Role]
     expect(actual).to have_content expected[:Present]
-
   end
   
   click_link "Logout"
