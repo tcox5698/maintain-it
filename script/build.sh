@@ -2,7 +2,8 @@
 
 bundle install
 
-bundle exec rake db:migrate RAILS_ENV=test
+bundle exec rake parallel:prepare[3]
+# bundle exec rake db:migrate RAILS_ENV=test
 
-bundle exec rspec && \
-bundle exec cucumber
+bundle exec rake parallel:spec[3] && \
+bundle exec rake parallel:features[2]

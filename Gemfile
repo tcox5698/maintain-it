@@ -51,6 +51,7 @@ group :development, :test do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-controller-testing'
   gem 'letter_opener'
+  gem 'parallel_tests'
 end
 
 group :development do
