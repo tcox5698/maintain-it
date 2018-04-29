@@ -94,7 +94,7 @@ Then(/^user '(.*)' sees the following list on the Sites page$/) do |email, table
   expect(actual_rows.to_a.size).to eq table.hashes.size
 
   table.hashes.each do |expected|
-    actual = actual_rows.select{|r|r.has_content?(expected[:Site])}
+    actual = actual_rows.select{|r|r.has_content?(expected[:Site])}.first
     expect(actual).not_to be_nil
 
     expect(actual).to have_content expected[:Role]

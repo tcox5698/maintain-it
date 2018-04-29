@@ -4,17 +4,21 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Role</th>
+      <th>Present</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @sites.each do |site| %>
+    <% @site_members.each do |site_member| %>
       <tr>
-        <td><%= site.name %></td>
-        <td><%= link_to 'Show', site %></td>
-        <td><%= link_to 'Edit', edit_site_path(site) %></td>
-        <td><%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= site_member.site.name %></td>
+        <td class="capitalize"><%= site_member.role %></td>
+        <td class="capitalize"><%= site_member.status == "present" ? "yes" : "" %></td>
+        <td><%= link_to 'Show', site_member.site %></td>
+        <td><%= link_to 'Edit', edit_site_path(site_member.site) %></td>
+        <td><%= link_to 'Destroy', site_member.site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
