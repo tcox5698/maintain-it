@@ -39,7 +39,6 @@ end
 
 And(/^I can delete the site '(.*)'$/) do |site_name|
   visit_sites_page
-  # sleep(120)
   destroy_link = page.find(:xpath, "//tbody/tr[td[.='#{site_name}']]/td[6]/a")
   accept_confirm do
     destroy_link.click
@@ -47,7 +46,11 @@ And(/^I can delete the site '(.*)'$/) do |site_name|
   expect(page).to have_content('Site was successfully destroyed.')
 end
 
-
+And(/^I select my site$/) do
+  expect(page).to have_xpath("//input[@type='radio']")
+  site_radio = page.first(:xpath, "//input[@type='radio']")
+  site_radio.click()
+end
 
 Given(/^'(.*)' has created a site '(.*)'$/) do |email, site_name|
   make_a_user(email)
