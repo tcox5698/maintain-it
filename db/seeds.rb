@@ -18,3 +18,5 @@ user.save()
 SiteMember.create!(site: site, user: user, role: 'host', status: 'present')
 
 site.check_in_user(email: 'localvisitor@example.com')
+
+Chore.create!(name: 'Seed Chore', description: 'Seed Chore Description', site: site)

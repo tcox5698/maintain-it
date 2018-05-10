@@ -11,11 +11,7 @@ Then(/^I see my sites$/) do
 end
 
 
-And(/^I select my site$/) do
-  expect(page).to have_xpath("//input[@type='radio']")
-  site_radio = page.first(:xpath, "//input[@type='radio']")
-  site_radio.click()
-end
+
 
 
 And(/^I enter email "([^"]*)" and click OK$/) do |email|

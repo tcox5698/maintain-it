@@ -1,0 +1,47 @@
+<%= form_with(model: chore, local: true) do |form| %>
+  <% if chore.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chore.errors.count, "error") %> prohibited this chore from being saved:</h2>
+
+      <ul>
+        <% chore.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <h1>Select a Site</h1>
+
+    <table>
+      <tbody>
+      <% @sites.each do |site| %>
+        <tr>
+          <td><%= radio_button_tag(:selected_site, site.id) %></td>
+          <td><%= site.name %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :schedule %>
+    <%= form.text_field :schedule %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
