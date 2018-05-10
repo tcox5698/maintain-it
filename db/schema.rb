@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_23_030001) do
+ActiveRecord::Schema.define(version: 2018_04_30_023931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chores", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "schedule"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_chores_on_site_id"
+  end
 
   create_table "site_members", force: :cascade do |t|
     t.string "nick_name"
@@ -56,6 +66,7 @@ ActiveRecord::Schema.define(version: 2018_04_23_030001) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chores", "sites"
   add_foreign_key "site_members", "sites"
   add_foreign_key "site_members", "users"
 end

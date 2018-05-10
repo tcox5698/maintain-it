@@ -1,6 +1,6 @@
 
 <%= form_tag("/check_in/check_in_visitor") do %>
-<div class="container">
+<div>
 
   <h1>1. Select a Site</h1>
 
@@ -16,14 +16,14 @@
   </table>
 </div>
 
-<div class="container">
+<div>
   <h1>2. Enter Visitor's Email Address</h1>
 
   <%= email_field_tag("email") %>
 
 </div>
 
-<div class="container">
+<div>
   <h1>3. Check In!</h1>
 
   <%= submit_tag("Check in visitor") %>
