@@ -19,11 +19,11 @@ Given(/^a new user "([^"]*)"$/) do |email|
 end
 
 
-Given(/^I am logged in as a Site Host with a single Site "([^"]*)"$/) do |site_name|
-  make_a_user("host@example.com")
+Given(/^Site Host "([^"]*)" with a single Site "([^"]*)" is logged in$/) do |site_host, site_name|
+  make_a_user(site_host)
   visit "/"
   click_link "Login"
-  log_in("host@example.com", "Password7!")
+  log_in(site_host, "Password7!")
   create_site(site_name)
 end
 

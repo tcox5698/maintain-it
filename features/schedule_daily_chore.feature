@@ -2,7 +2,7 @@
 Feature: As a host I can schedule a daily chore so the app can call attention to the chore once a day
 
   Scenario: Host schedules a daily chore
-    Given I am logged in as a Site Host with a single Site "My Beautiful Home"
+    Given Site Host "host@example" with a single Site "My Beautiful Home" is logged in
     And I click "New Chore"
     Then I see the "New Chore" page
     And I select my site
