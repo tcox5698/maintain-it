@@ -7,9 +7,9 @@ Feature: As a host I can schedule a daily chore so the app can call attention to
     Then I see the "New Chore" page
     And I select my site
     And I enter the following chore information and save
-      | Name        | Description            |
+      | ChoreName   | ChoreDescription       |
       | Sweep Docks | Please sweep the docks |
     And I click "Back"
     Then I see this list of chores for site "My Beautiful Home"
-      | Name        | Description            | Schedule | Site              |
+      | ChoreName   | ChoreDescription       | Schedule | SiteName          |
       | Sweep Docks | Please sweep the docks | Daily    | My Beautiful Home |
