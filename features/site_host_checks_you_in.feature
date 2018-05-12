@@ -3,7 +3,7 @@ Feature: Host checks a visitor in
 
   Scenario: Host checks in Visitor who is a new user
     Given a new user "visitor@example.com"
-    Given I am logged in as a Site Host with a single Site "My Beautiful Home"
+    Given Site Host "host@example.com" with a single Site "My Beautiful Home" is logged in
     When I click "Check in a Visitor"
     Then I see my sites
     And I select my site
@@ -16,7 +16,7 @@ Feature: Host checks a visitor in
 
   Scenario: host checks in an existing user but new Site Member
     Given an existing user "existinguser@example.com"
-    Given I am logged in as a Site Host with a single Site "My Beautiful Home"
+    Given Site Host "host@example.com" with a single Site "My Beautiful Home" is logged in
     When I click "Check in a Visitor"
     And I select my site
     And I enter email "existinguser@example.com" and click OK
@@ -27,7 +27,7 @@ Feature: Host checks a visitor in
 
   Scenario: host checks in an existing user who is already a Site Member
     Given an existing user "existinguser@example.com"
-    Given I am logged in as a Site Host with a single Site "My Beautiful Home"
+    Given Site Host "host@example.com" with a single Site "My Beautiful Home" is logged in
     And user "existinguser@example.com" is a member of Site "My Beautiful Home"
     When I visit the Site Members page of Site "My Beautiful Home"
     Then I see the following Site Members of Site "My Beautiful Home"
