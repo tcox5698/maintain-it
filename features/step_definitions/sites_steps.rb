@@ -108,3 +108,10 @@ Then(/^user '(.*)' sees the following list on the Sites page$/) do |email, table
   
   click_link "Logout"
 end
+
+
+And(/^Site "([^"]*)" is in timezone "([^"]*)"$/) do |site_name, time_zone_name|
+  site = Site.find_by name: site_name
+  site.time_zone = time_zone_name
+  site.save()
+end
