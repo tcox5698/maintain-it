@@ -6,9 +6,9 @@ Feature: As a site member, I will be notified of today's chores.
       | SiteName          | ChoreName    | ChoreDescription    | ChoreSchedule |
       | My Beautiful Home | chore 1 name | chore 1 description | Daily         |
     And Site "My Beautiful Home" is in timezone "America/Chicago"
-#    And the current UTC date is "February 4, 2017" and the time is "1:00 am"
-#    When the job "schedule chores" executes
-#    Then Site Host "sitehost@example.com" sees the following scheduled chores for Site "My Beautiful Home"
+    And the current UTC datetime is "4/Feb/2017 01:00:00"
+#    When the job "schedule_chores" executes
+#    Then Site Host "sitehost@example.com" sees the following chores schedule for Site "My Beautiful Home"
 #      | ChoreName    | ChoreDescription    | Due   |
 #      | chore 1 name | chore 1 description | Today |
 
