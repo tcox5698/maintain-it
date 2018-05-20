@@ -7,8 +7,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
     end
     context "when no chores exist" do
       it "does nothing" do
-        pending
-        expect(ScheduledChores.count).to eq 0
+        expect(ScheduledChore.count).to eq 0
       end
     end
   end

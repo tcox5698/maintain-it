@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Due:</strong>
+  <%= @scheduled_chore.due %>
+</p>
+
+<p>
+  <strong>Chore:</strong>
+  <%= @scheduled_chore.chore %>
+</p>
+
+<p>
+  <strong>Site:</strong>
+  <%= @scheduled_chore.site %>
+</p>
+
+<%= link_to 'Edit', edit_scheduled_chore_path(@scheduled_chore) %> |
+<%= link_to 'Back', scheduled_chores_path %>

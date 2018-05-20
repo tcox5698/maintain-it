@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_12_222411) do
+ActiveRecord::Schema.define(version: 2018_05_20_134525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 2018_05_12_222411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_chores_on_site_id"
+  end
+
+  create_table "scheduled_chores", force: :cascade do |t|
+    t.datetime "due"
+    t.bigint "chore_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chore_id"], name: "index_scheduled_chores_on_chore_id"
+    t.index ["site_id"], name: "index_scheduled_chores_on_site_id"
   end
 
   create_table "site_members", force: :cascade do |t|
@@ -68,6 +78,8 @@ ActiveRecord::Schema.define(version: 2018_05_12_222411) do
   end
 
   add_foreign_key "chores", "sites"
+  add_foreign_key "scheduled_chores", "chores"
+  add_foreign_key "scheduled_chores", "sites"
   add_foreign_key "site_members", "sites"
   add_foreign_key "site_members", "users"
 end
