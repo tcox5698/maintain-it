@@ -98,7 +98,7 @@ RSpec.describe ScheduledChoresController, type: :controller do
         put :update, params: { id: scheduled_chore.to_param, scheduled_chore: invalid_attributes }, session: valid_session
         expect(response).to be_successful
         scheduled_chore.reload
-        expect(scheduled_chore.due).to eq valid_attributes[:due]
+        expect(scheduled_chore.due.round.utc).to eq valid_attributes[:due].round.utc
       end
     end
   end
