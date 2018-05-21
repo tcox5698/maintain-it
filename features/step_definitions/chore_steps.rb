@@ -42,3 +42,20 @@ And(/^Site Host "([^"]*)" has created the following chores$/) do |email, table|
   visit("/chores")
   assert_chores_displayed(table)
 end
+
+
+Then(/^Site Host "([^"]*)" sees the following chores schedule for Site "([^"]*)"$/) do |email, site_name, table|
+  # table is a table.hashes.keys # => [:ChoreName, :ChoreDescription, :Due]
+  visit("/scheduled_chores")
+
+  rows = page.find(:xpath, "//tbody/tr")
+  expect(rows.length).to eq table.hashes.length
+
+  table.hashes.each do |expected|
+    expect(page).to have_content expected[:ChoreName]
+    actual = find(:xpath, "//tbody/tr[td[contains(.,'#{expected[:ChoreName]}')]]")
+    expect(actual).not_to be_nil
+    expect(actual).to have_content expected[:ChoreDescription]
+    expect(actual).to have_content expected[:Due]
+  end
+end
