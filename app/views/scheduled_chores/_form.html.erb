@@ -1,0 +1,32 @@
+<%= form_with(model: scheduled_chore, local: true) do |form| %>
+  <% if scheduled_chore.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(scheduled_chore.errors.count, "error") %> prohibited this scheduled_chore from being saved:</h2>
+
+      <ul>
+      <% scheduled_chore.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :due %>
+    <%= form.datetime_select :due %>
+  </div>
+
+  <div class="field">
+    <%= form.label :chore_id %>
+    <%= form.text_field :chore_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :site_id %>
+    <%= form.text_field :site_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
