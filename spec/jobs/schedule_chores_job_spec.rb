@@ -24,7 +24,22 @@ RSpec.describe ScheduleChoresJob, type: :job do
         ScheduleChoresJob.perform_now
       end
 
+      context 'when chore has already been scheduled for today' do
+        before do
+          expect(ScheduledChore.count).to eq 1
+          ScheduleChoresJob.perform_now
+        end
+
+        it 'does not schedule the chore again for today' do
+          expect(ScheduledChore.count).to eq 1
+        end
+      end
+
       context 'when chore has not been scheduled for today' do
+        it 'schedules a single chore' do
+          expect(ScheduledChore.count).to eq 1
+        end
+
         describe "the scheduled chore" do
           subject(:actual) {ScheduledChore.all.first}
           it "is not nil" do
@@ -60,6 +75,8 @@ RSpec.describe ScheduleChoresJob, type: :job do
           end
         end
       end
+
+
     end
   end
 end
