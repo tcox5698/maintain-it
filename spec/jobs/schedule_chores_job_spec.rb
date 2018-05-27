@@ -1,6 +1,13 @@
 require 'rails_helper'
+require 'active_support/testing/time_helpers'
 
 RSpec.describe ScheduleChoresJob, type: :job do
+  let(:site_time_zone) {'Australia/Melbourne'}
+
+  after do
+    travel_back
+  end
+
   describe "#perform" do
     context "when no chores exist" do
       before do
@@ -15,7 +22,6 @@ RSpec.describe ScheduleChoresJob, type: :job do
     end
 
     context 'when chore exists' do
-      let(:site_time_zone) {'Australia/Melbourne'}
       let(:site) {FactoryBot.create(:site, time_zone: site_time_zone)}
       let(:chore) {FactoryBot.create(:chore, site: site)}
 
@@ -76,7 +82,37 @@ RSpec.describe ScheduleChoresJob, type: :job do
         end
       end
 
+      context 'when chore was scheduled yesterday' do
+        before do
+          expect(ScheduledChore.count).to eq 1
+          Time.use_zone(site.time_zone) do
+            travel_to(Time.zone.now + 1.day)
+          end
+          ScheduleChoresJob.perform_now
+        end
 
+        it 'schedules the chore again for today' do
+          expect(ScheduledChore.count).to eq 2
+        end
+      end
+
+      context 'when chore was scheduled today but today is mostly over' do
+        before do
+          expect(ScheduledChore.count).to eq 1
+          Time.use_zone(site.time_zone) do
+            travel_to(Time.zone.now.end_of_day - 1.hour)
+          end
+          ScheduleChoresJob.perform_now
+        end
+
+        it 'schedules the chore for tomorrow' do
+          expect(ScheduledChore.count).to eq 2
+          Time.use_zone(site.time_zone) do
+            expect(ScheduledChore.first.due.day).to eq Time.zone.now.day
+            expect(ScheduledChore.last.due.day).to eq (Time.zone.now + 1.day).day
+          end
+        end
+      end
     end
   end
 end
