@@ -11,7 +11,7 @@ Feature: As a site member, I will be notified of today's chores.
     When the job "schedule_chores" executes
     Then Site Host "sitehost@example.com" sees the following chores schedule for Site "My Beautiful Home"
       | ChoreName    | ChoreDescription    | Due   |
-      | chore 1 name | chore 1 description | Today |
+      | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
 
     
     

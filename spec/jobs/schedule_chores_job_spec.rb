@@ -3,6 +3,11 @@ require 'active_support/testing/time_helpers'
 
 RSpec.describe ScheduleChoresJob, type: :job do
   let(:site_time_zone) {'Australia/Melbourne'}
+  let(:fake_now) do
+    Time.use_zone(site_time_zone) do
+      Time.zone.now
+    end
+  end
 
   after do
     travel_back
@@ -11,6 +16,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
   describe "#perform" do
     context "when no chores exist" do
       before do
+        travel_to fake_now
         ScheduleChoresJob.perform_now
       end
 
@@ -28,6 +34,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
       before do
         expect(chore.name).to eq "MyString"
         ScheduleChoresJob.perform_now
+
       end
 
       context 'when chore has already been scheduled for today' do
@@ -42,6 +49,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
       end
 
       context 'when chore has not been scheduled for today' do
+
         it 'schedules a single chore' do
           expect(ScheduledChore.count).to eq 1
         end
@@ -58,12 +66,21 @@ RSpec.describe ScheduleChoresJob, type: :job do
 
           context "when site in time zone America/Chicago" do
             let(:site_time_zone) {'America/Chicago'}
-            it "has due equal to 10 pm today central time" do
-              require 'active_support/values/time_zone.rb'
 
-              Time.use_zone(site_time_zone) do
-                ten_pm_today = Time.zone.now.end_of_day - 2.hours
-                expect(actual.due.to_s).to eq ten_pm_today.to_s
+            context 'and now is before 10 pm' do
+              let(:fake_now) do
+                Time.use_zone(site_time_zone) do
+                  Time.zone.now.end_of_day - 121.minutes
+                end
+              end
+
+              it "has due equal to 10 pm today central time" do
+                require 'active_support/values/time_zone.rb'
+
+                Time.use_zone(site_time_zone) do
+                  ten_pm_today = Time.zone.now.end_of_day - 2.hours
+                  expect(actual.due.to_s).to eq ten_pm_today.to_s
+                end
               end
             end
           end
@@ -71,8 +88,6 @@ RSpec.describe ScheduleChoresJob, type: :job do
           context "when site in time zone Pacific/Tongatapu" do
             let(:site_time_zone) {'Pacific/Tongatapu'}
             it "has due equal to 10 pm today Pacific/Tongatapu time" do
-              require 'active_support/values/time_zone.rb'
-
               Time.use_zone(site_time_zone) do
                 ten_pm_today = Time.zone.now.end_of_day - 2.hours
                 expect(actual.due.to_s).to eq ten_pm_today.to_s
@@ -81,6 +96,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
           end
         end
       end
+
 
       context 'when chore was scheduled yesterday' do
         before do
@@ -95,7 +111,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
           expect(ScheduledChore.count).to eq 2
         end
       end
-
+      
       context 'when chore was scheduled today but today is mostly over' do
         before do
           expect(ScheduledChore.count).to eq 1
