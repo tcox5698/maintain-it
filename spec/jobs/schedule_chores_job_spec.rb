@@ -115,8 +115,12 @@ RSpec.describe ScheduleChoresJob, type: :job do
       context 'when chore was scheduled today but today is mostly over' do
         before do
           expect(ScheduledChore.count).to eq 1
+
+          puts("site time zone is: #{site.time_zone}")
+
           Time.use_zone(site.time_zone) do
-            travel_to(Time.zone.now.end_of_day - 1.hour)
+            fake_time = Time.zone.now.end_of_day - 1.hour
+            travel_to(fake_time)
           end
           ScheduleChoresJob.perform_now
         end
