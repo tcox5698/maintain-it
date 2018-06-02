@@ -5,9 +5,9 @@
 <table>
   <thead>
     <tr>
-      <th>Due</th>
       <th>Chore</th>
-      <th>Site</th>
+      <th>Description</th>
+      <th>Due</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +15,9 @@
   <tbody>
     <% @scheduled_chores.each do |scheduled_chore| %>
       <tr>
-        <td><%= scheduled_chore.due %></td>
-        <td><%= scheduled_chore.chore %></td>
-        <td><%= scheduled_chore.site %></td>
+        <td><%= scheduled_chore.chore.name %></td>
+        <td><%= scheduled_chore.chore.description %></td>
+        <td><%= Time.use_zone(scheduled_chore.site.time_zone) { scheduled_chore.due.to_formatted_s(:long_ordinal) }%></td>
         <td><%= link_to 'Show', scheduled_chore %></td>
         <td><%= link_to 'Edit', edit_scheduled_chore_path(scheduled_chore) %></td>
         <td><%= link_to 'Destroy', scheduled_chore, method: :delete, data: { confirm: 'Are you sure?' } %></td>

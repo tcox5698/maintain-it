@@ -1,3 +1,3 @@
 When(/^the job "([^"]*)" executes$/) do |job_name|
-  pending
+  ScheduleChoresJob.perform_now
 end
