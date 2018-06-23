@@ -8,6 +8,12 @@ class Chore < ApplicationRecord
   def populate_defaults
     self.schedule = "daily" if self.schedule.blank?
   end
+
+  def already_scheduled?
+    Time.use_zone(self.site.time_zone) do
+      ScheduledChore.where("chore_id = ? AND due > ?", self.id, Time.zone.now).exists?
+    end
+  end
 end
 
 # == Schema Information
