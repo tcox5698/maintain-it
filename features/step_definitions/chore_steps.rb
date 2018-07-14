@@ -48,7 +48,9 @@ Then(/^Site Host "([^"]*)" sees the following chores schedule for Site "([^"]*)"
   # table is a table.hashes.keys # => [:ChoreName, :ChoreDescription, :Due]
   visit("/scheduled_chores")
 
-  rows = page.find(:xpath, "//tbody/tr")
+  rows = page.all(:xpath, "//tbody/tr")
+
+  expect(rows.size).to eq table.hashes.size
 
   table.hashes.each do |expected|
     expect(page).to have_content expected[:ChoreName]

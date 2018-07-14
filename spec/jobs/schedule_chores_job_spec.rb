@@ -27,13 +27,18 @@ RSpec.describe ScheduleChoresJob, type: :job do
       end
     end
 
-    context 'when chore exists' do
+    context 'when chore exists for today' do
       let(:site) {FactoryBot.create(:site, time_zone: site_time_zone)}
       let(:chore) {FactoryBot.create(:chore, site: site)}
 
       before do
         expect(chore.name).to eq "MyString"
-        ScheduleChoresJob.perform_now
+
+        Time.use_zone(site.time_zone) do
+          fake_time = Time.zone.now.beginning_of_day + 4.hours
+          travel_to(fake_time)
+          ScheduleChoresJob.perform_now
+        end
 
       end
 
@@ -116,13 +121,12 @@ RSpec.describe ScheduleChoresJob, type: :job do
         before do
           expect(ScheduledChore.count).to eq 1
 
-          puts("site time zone is: #{site.time_zone}")
-
           Time.use_zone(site.time_zone) do
+            puts("   current site time is: #{Time.zone.now.strftime('%FT%T%:z')}" )
             fake_time = Time.zone.now.end_of_day - 1.hour
             travel_to(fake_time)
+            ScheduleChoresJob.perform_now
           end
-          ScheduleChoresJob.perform_now
         end
 
         it 'schedules the chore for tomorrow' do
