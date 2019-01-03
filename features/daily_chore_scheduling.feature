@@ -16,7 +16,7 @@ Feature: As a site member, I can view and be notified of scheduled chores.
     Then Site Host "sitehost@example.com" sees the following chores schedule for Site "My Beautiful Home"
       | ChoreName    | ChoreDescription    | Due                      |
       | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
-#    When the job "NotifyScheduledChoresJob" executes
+    When the job "NotifyScheduledChoresJob" executes
 #    Then an email is sent to "sitehost@example.com" with the following scheduled chores
 #      | ChoreName    | ChoreDescription    | Due                      |
 #      | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
