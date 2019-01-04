@@ -9,13 +9,13 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  username: maintainit
+  password: password
+  host: localhost
 
 development:
   <<: *default
   database: maintainit_development
-  username: maintainit
-  password: password
-  
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -23,6 +23,7 @@ development:
 test: &test
   <<: *default
   database: maintainit_test<%= ENV['TEST_ENV_NUMBER'] %>
+  host: localhost
 
 production:
   <<: *default
