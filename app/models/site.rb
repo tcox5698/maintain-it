@@ -2,6 +2,7 @@ class Site < ApplicationRecord
   validates_presence_of :name
 
   has_many :site_members, dependent: :destroy
+  has_many :scheduled_chores
 
   def check_in_user(email:)
     user = User.find_by_email(email)

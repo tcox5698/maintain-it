@@ -1,7 +1,7 @@
 @javascript
 Feature: As a site member, I can view and be notified of scheduled chores.
 
-  Scenario: Member sees daily chores scheduled once and only once for the day and is notified
+  Scenario: Site Host sees daily chores scheduled once and only once for the day and is notified
     Given Site Host "sitehost@example.com" with a single Site "My Beautiful Home" is logged in
     And Site Host "sitehost@example.com" has created the following chores
       | SiteName          | ChoreName    | ChoreDescription    | ChoreSchedule |
@@ -17,9 +17,9 @@ Feature: As a site member, I can view and be notified of scheduled chores.
       | ChoreName    | ChoreDescription    | Due                      |
       | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
     When the job "NotifyScheduledChoresJob" executes
-#    Then an email is sent to "sitehost@example.com" with the following scheduled chores
-#      | ChoreName    | ChoreDescription    | Due                      |
-#      | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
+    Then an email is sent to "sitehost@example.com" with the following scheduled chores
+      | ChoreName    | ChoreDescription    | Due                      |
+      | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
 
 
     

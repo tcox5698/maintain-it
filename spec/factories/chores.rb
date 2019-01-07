@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :chore do
-    name {"MyString"}
-    description {"MyString"}
+    name {"FactoryChoreName"}
+    description {"FactoryChoreDescription"}
     schedule {"daily"}
     site 
   end
