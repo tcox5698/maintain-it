@@ -32,7 +32,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
       let(:chore) {FactoryBot.create(:chore, site: site)}
 
       before do
-        expect(chore.name).to eq "MyString"
+        expect(chore.name).to eq "FactoryChoreName"
 
         Time.use_zone(site.time_zone) do
           fake_time = Time.zone.now.beginning_of_day + 4.hours
