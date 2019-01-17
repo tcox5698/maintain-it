@@ -1,0 +1,9 @@
+<% @scheduled_chores.each do |scheduled_chore| %>
+
+  <%= scheduled_chore.chore.name %>
+  <%= scheduled_chore.chore.description %>
+  <%= scheduled_chore.due.strftime("%B %-d, %Y %H:%M") %>
+
+  ===========================
+
+<% end %>

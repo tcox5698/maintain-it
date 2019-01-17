@@ -9,10 +9,10 @@ end
 #
 # Table name: scheduled_chores
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  due        :datetime
-#  chore_id   :integer
-#  site_id    :integer
+#  chore_id   :bigint(8)
+#  site_id    :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
