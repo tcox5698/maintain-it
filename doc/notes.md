@@ -54,8 +54,19 @@ Then just push to heroku master:
     
     heroku run rake db:migrate --app maintainit
     
+## Tasks and DB
+
+### Access db
+
+`heroku pg:psql --app maintainit-test`
+
+### Run rake tasks
+
+`heroku run rake chores:schedule --app maintainit-test`    
+    
 # Annotating Models
 
 Using the annotate gem from ctran. After changing models, execute:
 
 `annotate --exclude tests,fixtures,factories,serializers`    
+

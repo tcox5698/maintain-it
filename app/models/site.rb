@@ -2,6 +2,7 @@ class Site < ApplicationRecord
   validates_presence_of :name
 
   has_many :site_members, dependent: :destroy
+  has_many :scheduled_chores
 
   def check_in_user(email:)
     user = User.find_by_email(email)
@@ -38,8 +39,9 @@ end
 #
 # Table name: sites
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  time_zone  :string           default("America/Chicago")
 #

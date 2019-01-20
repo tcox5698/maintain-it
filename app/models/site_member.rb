@@ -28,10 +28,10 @@ end
 #
 # Table name: site_members
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  nick_name  :string
-#  user_id    :integer
-#  site_id    :integer
+#  user_id    :bigint(8)
+#  site_id    :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role       :string           default("visitor"), not null

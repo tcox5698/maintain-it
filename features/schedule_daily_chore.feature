@@ -1,5 +1,6 @@
 @javascript
-Feature: As a host I can schedule a daily chore so the app can call attention to the chore once a day
+Feature: As a host I can schedule a daily chore so the app can call
+  attention to the chore once a day
 
   Scenario: Host schedules a daily chore
     Given Site Host "host@example" with a single Site "My Beautiful Home" is logged in
