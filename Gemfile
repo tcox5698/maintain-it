@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'bootsnap', require: false
-
+gem 'delayed_job_active_record'
 gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
