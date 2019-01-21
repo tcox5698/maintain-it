@@ -11,7 +11,7 @@ RSpec.describe NotifyScheduledChoresJob, type: :job do
       let(:expected_chores) {[scheduled_chore]}
       let(:mock_emailer) {double('mock_emailer', chores_email: mock_email)}
       let(:mock_email) {double('mock_email', deliver_later: nil)}
-      
+
       before do
         expect(scheduled_chore.chore.name).to eq 'FactoryChoreName'
         expect(expected_chores.length).to eq 1
