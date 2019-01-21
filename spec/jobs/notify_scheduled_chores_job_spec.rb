@@ -9,20 +9,18 @@ RSpec.describe NotifyScheduledChoresJob, type: :job do
       let(:chore) {create :chore, site: site_member.site}
       let(:scheduled_chore) {create :scheduled_chore, chore: chore, site: site_member.site}
       let(:expected_chores) {[scheduled_chore]}
-      let(:mock_emailer) {double('mock_emailer', chores_email: mock_email)}
-      let(:mock_email) {double('mock_email', deliver_later: nil)}
-      
+      let(:mock_emailer) {double('mock_emailer', chores_email: nil)}
+
       before do
         expect(scheduled_chore.chore.name).to eq 'FactoryChoreName'
         expect(expected_chores.length).to eq 1
-        allow(ScheduledChoresMailer).to receive(:with).and_return mock_emailer
+        allow(ScheduledChoresMailer).to receive(:delay).and_return mock_emailer
         NotifyScheduledChoresJob.perform_now
       end
 
       it "calls ScheduledChoresMailer with sites that have chores" do
-        expect(ScheduledChoresMailer).to have_received(:with).with(site: site_member.site)
-        expect(mock_emailer).to have_received(:chores_email)
-        expect(mock_email).to have_received(:deliver_later)
+        expect(ScheduledChoresMailer).to have_received(:delay)
+        expect(mock_emailer).to have_received(:chores_email).with(site: site_member.site)
       end
     end
   end
