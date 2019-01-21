@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'administrate'
 gem 'bootsnap', require: false
 gem 'delayed_job_active_record'
 gem 'pg'
