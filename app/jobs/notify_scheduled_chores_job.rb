@@ -10,7 +10,7 @@ class NotifyScheduledChoresJob < ApplicationJob
       Rails.logger.info("Queueing ScheduledChoresMailer with site: #{site}")
 
 
-      ScheduledChoresMailer.delay.chores_email(site: site)
+      ScheduledChoresMailer.with(site: site).chores_email.deliver_later(queue: :default)
 
     end
   end

@@ -20,6 +20,7 @@ Feature: As a site member, I can view and be notified of scheduled chores.
       | chore 1 name | chore 1 description | February 3rd, 2017 21:59 |
       | chore 2 name | chore 2 description | February 3rd, 2017 21:59 |
     When the job "NotifyScheduledChoresJob" executes
+    And delayed jobs are being dispatched
     Then an email is sent to "sitehost@example.com" with the following scheduled chores
       | ChoreName    | ChoreDescription    | Due                      |
       | chore 1 name | chore 1 description | February 4, 2017 03:59 |
