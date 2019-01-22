@@ -9,7 +9,16 @@ module Admin
     before_action :authenticate_admin
 
     def authenticate_admin
-      # TODO Add authentication logic here.
+      unless current_user
+        flash[:alert] = "Try logging in first."
+        redirect_to :root
+        return
+      end
+
+      unless current_user.sys_admin?
+        flash[:alert] = "You are not allowed to do that."
+        redirect_to :root
+      end
     end
 
     # Override this value to specify the number of elements to display at a time
