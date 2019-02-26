@@ -122,7 +122,6 @@ RSpec.describe ScheduleChoresJob, type: :job do
           expect(ScheduledChore.count).to eq 1
 
           Time.use_zone(site.time_zone) do
-            puts("   current site time is: #{Time.zone.now.strftime('%FT%T%:z')}" )
             fake_time = Time.zone.now.end_of_day - 1.hour
             travel_to(fake_time)
             ScheduleChoresJob.perform_now
