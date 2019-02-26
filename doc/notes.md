@@ -5,7 +5,7 @@
 ## Create DB user if necessary
     
     $ psql -h localhost -U postgres
-    # create role maintainit with createdb login password 'password'
+    # create role maintainit with createdb login password 'password' ;
     
 # Environments
 
