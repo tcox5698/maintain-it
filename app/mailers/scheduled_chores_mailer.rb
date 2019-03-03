@@ -11,7 +11,10 @@ class ScheduledChoresMailer < ApplicationMailer
     site.site_members.each do |member|
       Rails.logger.info "ScheduledChoresMailer queueing email to: #{member.user.email}"
 
-      mail(to: member.user.email, subject: "MaintainIt! It's time to get some chores done!")
+      mail(
+        bcc: site.site_members.map{|m|m.user.email},
+        subject: "MaintainIt! It's time to get some chores done!"
+      )
     end
   end
 end
