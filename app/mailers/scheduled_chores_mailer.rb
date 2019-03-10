@@ -8,6 +8,7 @@ class ScheduledChoresMailer < ApplicationMailer
 
     Rails.logger.info "ScheduledChoresMailer GOT SCHEDULED CHORES"
 
+    #TODO test this away too
     site.site_members.each do |member|
       Rails.logger.info "ScheduledChoresMailer queueing email to: #{member.user.email}"
 

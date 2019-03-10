@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_234535) do
+ActiveRecord::Schema.define(version: 2019_03_03_213000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,15 +40,8 @@ ActiveRecord::Schema.define(version: 2019_01_21_234535) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "scheduled_chores", force: :cascade do |t|
-    t.datetime "due"
-    t.bigint "chore_id"
-    t.bigint "site_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chore_id"], name: "index_scheduled_chores_on_chore_id"
-    t.index ["site_id"], name: "index_scheduled_chores_on_site_id"
-  end
+# Could not dump table "scheduled_chores" because of following StandardError
+#   Unknown type 'scheduled_chore_status' for column 'status'
 
   create_table "site_members", force: :cascade do |t|
     t.string "nick_name"

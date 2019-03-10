@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :site_members, dependent: :destroy
 
+  #TODO invite user sends confirm email, but confirm link says already confirmed. when do you set the password?
+
   def sites
     Site.joins(:site_members).where('site_members.user_id = ?', self.id)
   end

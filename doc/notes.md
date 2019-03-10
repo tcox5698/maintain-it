@@ -62,7 +62,8 @@ Then just push to heroku master:
 
 ### Run rake tasks
 
-`heroku run rake chores:schedule --app maintainit-test`    
+`heroku run rake chores:schedule --app maintainit-test`
+`heroku run rake chores:notify --app maintainit-test`       
     
 # Annotating Models
 
