@@ -4,7 +4,7 @@ Then(/^an email is sent to "([^"]*)" with the following scheduled chores$/) do |
   sleep 2
 
   notification_email = ActionMailer::Base.deliveries.last
-  expect(notification_email.to[0]).to eq email_address
+  expect(notification_email.bcc[0]).to eq email_address
   expect(notification_email.subject).to eq "MaintainIt! It's time to get some chores done!"
   expected_chores.hashes.each do |expected_row|
     expect(notification_email.body).to include expected_row[:ChoreName]
