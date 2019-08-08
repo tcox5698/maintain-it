@@ -1,11 +1,6 @@
-# Run local postgres in docker:
+# Set up the postgres database 
 
-    docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD= -d postgres
-    
-## Create DB user if necessary
-    
-    $ psql -h localhost -U postgres
-    # create role maintainit with createdb login password 'password' ;
+    $ ./script/bootstrap_db.sh
     
 # Environments
 
