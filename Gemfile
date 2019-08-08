@@ -73,4 +73,4 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'annotate'
 
-ruby "2.5.1"
+ruby "2.6.3"
