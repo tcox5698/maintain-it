@@ -1,6 +1,7 @@
 class SiteMember < ApplicationRecord
   belongs_to :user
   belongs_to :site
+  has_many :notification_channels, dependent: :destroy
 
   after_initialize :populate_defaults
 

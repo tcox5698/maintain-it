@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_234535) do
+ActiveRecord::Schema.define(version: 2019_09_02_162958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2019_01_21_234535) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "notification_channels", force: :cascade do |t|
+    t.string "channel_type"
+    t.boolean "enabled"
+    t.bigint "site_member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_member_id"], name: "index_notification_channels_on_site_member_id"
   end
 
   create_table "scheduled_chores", force: :cascade do |t|
@@ -94,6 +103,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_234535) do
   end
 
   add_foreign_key "chores", "sites"
+  add_foreign_key "notification_channels", "site_members"
   add_foreign_key "scheduled_chores", "chores"
   add_foreign_key "scheduled_chores", "sites"
   add_foreign_key "site_members", "sites"
