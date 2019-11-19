@@ -8,7 +8,13 @@ RSpec.describe SiteMember, type: :model do
     expect {SiteMember.create!(attributes={ site: site })}.to raise_error 'Validation failed: User must exist'
   end
 
+  it 'has a single notification channel of type "email"' do
+    member = SiteMember.create!(attributes={ user: user, site: site })
 
+    expect(member.notification_channels.size).to eq 1
+    expect(member.notification_channels.first.channel_type).to eq NotificationChannel::TYPE_EMAIL
+  end
+  
   context 'when created without nickname' do
     subject {SiteMember.create!(attributes={ user: user, site: site })}
 
