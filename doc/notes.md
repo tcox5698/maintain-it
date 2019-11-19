@@ -18,6 +18,8 @@ Cucumber tests will execute in headless chrome by default. To run full chrome fo
 
 On merge to master, Codeship will automagically run tests and push to maintainit-test heroku app.
 
+### if codeship breaks down, manual steps here
+
 Assuming you named your git remote for test environment "herokutest"
 
     $ git remote -v    
@@ -32,10 +34,11 @@ Then just push to herokutest master:
     
 ## PRODUCTION     
 
-On merge to release, Codeship will automagically push to maintainit heroku app.
+Heroku pipeline "maintain-it-pipeline" provides a single click promotion from the test app to the production app.
 
-### Manually deploying to production
+https://dashboard.heroku.com/apps
 
+### Manually deploying to production (if heroku pipeline breaks down)
 
 Assuming you named your git remote for test environment "heroku"
 
