@@ -11,15 +11,10 @@ class ScheduledChoresMailer < ApplicationMailer
     site.site_members.each do |member|
       Rails.logger.info "ScheduledChoresMailer queueing email to: #{member.user.email}"
 
-      enabled_members = site.site_members.select do |site_member|
-        x = site_member.notification_channels.find do |channel|
-          channel.channel_type == 'email' && channel.enabled
-        end
-        x
-      end
+      enabled_members = site.site_members.select { |m| m.notification_channel_enabled?('email') }
 
       mail(
-        bcc: enabled_members.map{|m|m.user.email},
+        bcc: enabled_members.map { |m| m.user.email },
         subject: "MaintainIt! It's time to get some chores done!"
       )
     end

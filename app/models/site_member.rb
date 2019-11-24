@@ -12,6 +12,14 @@ class SiteMember < ApplicationRecord
     self.notification_channels << NotificationChannel.new(channel_type: NotificationChannel::TYPE_EMAIL, enabled: true)
   end
 
+  def notification_channel_enabled?(channel_type)
+    notification_channel(channel_type)&.enabled
+  end
+
+  def notification_channel(channel_type)
+    self.notification_channels.find { |channel| channel.channel_type == channel_type }
+  end
+
   def populate_defaults
     self.populate_nick_name
     self.populate_role
