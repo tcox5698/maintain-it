@@ -70,7 +70,7 @@ RSpec.describe SiteMember, type: :model do
     it 'cascades to NotificationChannel' do
       site_member = SiteMember.create!(attributes = { user: user, site: site, nick_name: 'fake nickname' })
       expect(NotificationChannel.count).to eq 1
-      
+
       site_member.destroy
       expect(NotificationChannel.count).to eq 0
     end
@@ -83,6 +83,34 @@ RSpec.describe SiteMember, type: :model do
       member.role = nil
 
       expect { member.save! }.to raise_error expected_message
+    end
+  end
+
+  describe '.channel_enabled?' do
+    let(:email_channel_enabled) { true }
+    let(:site_member) { SiteMember.create!(attributes = { user: user, site: site }) }
+    before do
+      site_member.notification_channel('email').update({ enabled: email_channel_enabled })
+    end
+
+    context 'when email channel enabled' do
+      it 'returns true' do
+        expect(site_member.notification_channel_enabled?('email')).to be_truthy
+      end
+    end
+
+    context 'when email channel not enabled' do
+      let(:email_channel_enabled) { false }
+
+      it 'returns false' do
+        expect(site_member.notification_channel_enabled?('email')).to be_falsey
+      end
+    end
+    
+    context 'when channel not configured' do
+      it 'returns false' do
+        expect(site_member.notification_channel_enabled?('carrier_pidgeon')).to be_falsey
+      end
     end
   end
 end
