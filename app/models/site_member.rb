@@ -1,10 +1,16 @@
 class SiteMember < ApplicationRecord
   belongs_to :user
   belongs_to :site
+  has_many :notification_channels, dependent: :destroy
 
   after_initialize :populate_defaults
+  after_create :initialize_channels
 
   validates_presence_of :role
+
+  def initialize_channels
+    self.notification_channels << NotificationChannel.new(channel_type: NotificationChannel::TYPE_EMAIL, enabled: true)
+  end
 
   def populate_defaults
     self.populate_nick_name
