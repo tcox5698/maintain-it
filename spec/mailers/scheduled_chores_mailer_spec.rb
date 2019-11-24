@@ -24,77 +24,78 @@ RSpec.describe ScheduledChoresMailer, type: :mailer do
       context "when all members' email notification channels are enabled" do
         let(:site_member_other) { FactoryBot.create(:site_member, site: site, user: user_other) }
 
-      context "when all members' email notification channels are enabled" do
-        let(:site_member_other) { FactoryBot.create(:site_member, site: site, user: user_other) }
+        context "when all members' email notification channels are enabled" do
+          let(:site_member_other) { FactoryBot.create(:site_member, site: site, user: user_other) }
 
-        describe 'the email' do
-          it "has the 'time for chores' subject" do
-            expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
-          end
+          describe 'the email' do
+            it "has the 'time for chores' subject" do
+              expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
+            end
 
-          it 'is addressed bcc to the site_members)' do
-            expect(@mail.to).to be_nil
-            expect(@mail.bcc).to eq(site.site_members.map { |m| m.user.email })
-          end
+            it 'is addressed bcc to the site_members)' do
+              expect(@mail.to).to be_nil
+              expect(@mail.bcc).to eq(site.site_members.map { |m| m.user.email })
+            end
 
-          it 'lists the chores' do
-            expect(@mail.body.to_s).to include chore.name
-          end
-        end
-      end
-
-      context "when one member's email notification channel is not enabled" do
-        let(:site_member_other) do
-          other_member = FactoryBot.create(:site_member, site: site, user: user_other)
-          channel = other_member.notification_channels.first
-          channel.update(enabled: false)
-          other_member
-        end
-
-        before do
-          expect(site_member_other.notification_channels.first.enabled).to be_falsey
-        end
-
-        describe 'the email' do
-          it "has the 'time for chores' subject" do
-            expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
-          end
-
-          it 'is addressed bcc to the site_members with enabled channels)' do
-            expect(@mail.to).to be_nil
-            expect(@mail.bcc).to eq [site_member.user.email]
-          end
-
-          it 'lists the chores' do
-            expect(@mail.body.to_s).to include chore.name
+            it 'lists the chores' do
+              expect(@mail.body.to_s).to include chore.name
+            end
           end
         end
-      end
 
-      context "when one member's email notification channel is not enabled" do
-        let(:site_member_other) do
-          other_member = FactoryBot.create(:site_member, site: site, user: user_other)
-          channel = other_member.notification_channels.first
-          channel.update({enabled: false})
-          other_member
-        end
-
-        before do
-          expect(site_member_other.notification_channels.first.enabled).to be_falsey
-        end
-
-        describe "the email" do
-          it "has the 'time for chores' subject" do
-            expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
+        context "when one member's email notification channel is not enabled" do
+          let(:site_member_other) do
+            other_member = FactoryBot.create(:site_member, site: site, user: user_other)
+            channel = other_member.notification_channels.first
+            channel.update(enabled: false)
+            other_member
           end
 
-          it 'is addressed bcc to the site_members with enabled channels)' do
-            expect(@mail.to).to be_nil
-            expect(@mail.bcc).to eq [site_member.user.email]
+          before do
+            expect(site_member_other.notification_channels.first.enabled).to be_falsey
           end
 
-          it 'lists the chores' do
-            expect(@mail.body.to_s).to include chore.name
+          describe 'the email' do
+            it "has the 'time for chores' subject" do
+              expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
+            end
+
+            it 'is addressed bcc to the site_members with enabled channels)' do
+              expect(@mail.to).to be_nil
+              expect(@mail.bcc).to eq [site_member.user.email]
+            end
+
+            it 'lists the chores' do
+              expect(@mail.body.to_s).to include chore.name
+            end
+          end
+        end
+
+        context "when one member's email notification channel is not enabled" do
+          let(:site_member_other) do
+            other_member = FactoryBot.create(:site_member, site: site, user: user_other)
+            channel = other_member.notification_channels.first
+            channel.update({ enabled: false })
+            other_member
+          end
+
+          before do
+            expect(site_member_other.notification_channels.first.enabled).to be_falsey
+          end
+
+          describe "the email" do
+            it "has the 'time for chores' subject" do
+              expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
+            end
+
+            it 'is addressed bcc to the site_members with enabled channels)' do
+              expect(@mail.to).to be_nil
+              expect(@mail.bcc).to eq [site_member.user.email]
+            end
+
+            it 'lists the chores' do
+              expect(@mail.body.to_s).to include chore.name
+            end
           end
         end
       end
