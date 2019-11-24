@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'net/http'
 
 class NotifyScheduledChoresJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     scheduled_sites = ScheduledChore.pluck(:site_id)
 
     Rails.logger.info("found site ids to notify: #{scheduled_sites}")
@@ -19,7 +21,7 @@ class NotifyScheduledChoresJob < ApplicationJob
       Rails.logger.info("Pinging app url to trigger worker: #{app_url}")
       Net::HTTP.get(URI.parse(app_url))
     else
-      Rails.logger.info("NO APP_ROOT_URL set - no ping. worker probably will not run your mail jobs.")
+      Rails.logger.info('NO APP_ROOT_URL set - no ping. worker probably will not run your mail jobs.')
     end
   end
 end

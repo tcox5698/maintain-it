@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace :admin do
-      resources :users
-      resources :chores
-      resources :scheduled_chores
-      resources :sites
-      resources :site_members
+    resources :users
+    resources :chores
+    resources :scheduled_chores
+    resources :sites
+    resources :site_members
 
-      root to: "users#index"
-    end
+    root to: 'users#index'
+  end
   resources :scheduled_chores
   resources :chores
   get 'check_in/start_visitor'

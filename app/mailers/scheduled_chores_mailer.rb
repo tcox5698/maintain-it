@@ -1,11 +1,12 @@
-class ScheduledChoresMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class ScheduledChoresMailer < ApplicationMailer
   def chores_email
     site = params[:site]
     Rails.logger.info "ScheduledChoresMailer GOT SITE: #{site.inspect}"
     @scheduled_chores = site.scheduled_chores
 
-    Rails.logger.info "ScheduledChoresMailer GOT SCHEDULED CHORES"
+    Rails.logger.info 'ScheduledChoresMailer GOT SCHEDULED CHORES'
     enabled_members = site.site_members.select { |m| m.notification_channel_enabled?('email') }
 
     mail(

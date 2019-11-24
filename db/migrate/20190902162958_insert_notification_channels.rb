@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InsertNotificationChannels < ActiveRecord::Migration[5.2]
   def up
     SiteMember.all.each do |site_member|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ScheduledChore < ApplicationRecord
   belongs_to :chore
   belongs_to :site

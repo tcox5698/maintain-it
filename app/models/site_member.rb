@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SiteMember < ApplicationRecord
   belongs_to :user
   belongs_to :site
@@ -9,7 +11,18 @@ class SiteMember < ApplicationRecord
   validates_presence_of :role
 
   def initialize_channels
-    self.notification_channels << NotificationChannel.new(channel_type: NotificationChannel::TYPE_EMAIL, enabled: true)
+    notification_channels << NotificationChannel.new(
+      channel_type: NotificationChannel::TYPE_EMAIL,
+      enabled: true
+    )
+  end
+
+  def notification_channel_enabled?(channel_type)
+    notification_channel(channel_type)&.enabled
+  end
+
+  def notification_channel(channel_type)
+    notification_channels.find { |channel| channel.channel_type == channel_type }
   end
 
   def notification_channel_enabled?(channel_type)
@@ -21,20 +34,17 @@ class SiteMember < ApplicationRecord
   end
 
   def populate_defaults
-    self.populate_nick_name
-    self.populate_role
+    populate_nick_name
+    populate_role
   end
 
   def populate_role
-    if self.role.blank?
-      self.role = 'visitor'
-    end
+    self.role = 'visitor' if role.blank?
   end
 
   def populate_nick_name
-    if self.user
-      self.nick_name = self.user.email.split("@")[0] if self.nick_name.blank?
-    end
+    return unless user
+    self.nick_name = user.email.split('@')[0] if nick_name.blank?
   end
 end
 

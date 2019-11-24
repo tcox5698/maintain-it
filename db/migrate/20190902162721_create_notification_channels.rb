@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateNotificationChannels < ActiveRecord::Migration[5.2]
   def change
     create_table :notification_channels do |t|

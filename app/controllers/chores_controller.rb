@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ChoresController < AuthedController
-  before_action :set_chore, only: [:show, :edit, :update, :destroy]
+  before_action :set_chore, only: %i[show edit update destroy]
 
   # GET /chores
   # GET /chores.json
@@ -9,8 +11,7 @@ class ChoresController < AuthedController
 
   # GET /chores/1
   # GET /chores/1.json
-  def show
-  end
+  def show; end
 
   # GET /chores/new
   def new
@@ -19,8 +20,7 @@ class ChoresController < AuthedController
   end
 
   # GET /chores/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /chores
   # POST /chores.json
@@ -31,15 +31,16 @@ class ChoresController < AuthedController
       name: chore_hash[:name],
       description: chore_hash[:description],
       schedule: chore_hash[:schedule],
-      site: site)
+      site: site
+    )
 
     respond_to do |format|
       if @chore.save
-        format.html {redirect_to @chore, notice: 'Chore was successfully created.'}
-        format.json {render :show, status: :created, location: @chore}
+        format.html { redirect_to @chore, notice: 'Chore was successfully created.' }
+        format.json { render :show, status: :created, location: @chore }
       else
-        format.html {render :new}
-        format.json {render json: @chore.errors, status: :unprocessable_entity}
+        format.html { render :new }
+        format.json { render json: @chore.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -50,15 +51,15 @@ class ChoresController < AuthedController
     chore_hash, site_id = chore_params
     site = Site.find(site_id)
     respond_to do |format|
-      if @chore.update({ name: chore_hash[:name],
-                         description: chore_hash[:description],
-                         schedule: chore_hash[:schedule],
-                         site: site })
-        format.html {redirect_to @chore, notice: 'Chore was successfully updated.'}
-        format.json {render :show, status: :ok, location: @chore}
+      if @chore.update(name: chore_hash[:name],
+                       description: chore_hash[:description],
+                       schedule: chore_hash[:schedule],
+                       site: site)
+        format.html { redirect_to @chore, notice: 'Chore was successfully updated.' }
+        format.json { render :show, status: :ok, location: @chore }
       else
-        format.html {render :edit}
-        format.json {render json: @chore.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @chore.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,8 +69,8 @@ class ChoresController < AuthedController
   def destroy
     @chore.destroy
     respond_to do |format|
-      format.html {redirect_to chores_url, notice: 'Chore was successfully destroyed.'}
-      format.json {head :no_content}
+      format.html { redirect_to chores_url, notice: 'Chore was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -82,6 +83,6 @@ class ChoresController < AuthedController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def chore_params
-    params.require([:chore, :selected_site])
+    params.require(%i[chore selected_site])
   end
 end
