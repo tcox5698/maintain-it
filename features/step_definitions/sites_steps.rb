@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Then(/^I see the Sites page$/) do
   expect(page).to have_content('New Site')
 end
@@ -9,7 +11,7 @@ end
 def create_site(site_name)
   visit_sites_page
   click_link 'New Site'
-  page.fill_in 'site_name', :with => site_name
+  page.fill_in 'site_name', with: site_name
   page.click_on 'Create Site'
   expect(page).to have_content('Site was successfully created.')
 end
@@ -28,9 +30,9 @@ Then(/^I see '(.*)' in the list of Sites$/) do |site_name|
   expect(page).to have_xpath("//td[.='#{site_name}']")
 end
 
-Then(/^I can change the name of site '(.*)' to '(.*)'$/) do |site_name, new_site_name|
+Then(/^I can change the name of site '(.*)' to '(.*)'$/) do |_site_name, new_site_name|
   click_link 'Edit'
-  page.fill_in 'site_name', :with => "#{new_site_name}"
+  page.fill_in 'site_name', with: new_site_name.to_s
   click_button 'Update Site'
   expect(page).to have_content('Site was successfully updated.')
   visit_sites_page
@@ -49,14 +51,14 @@ end
 And(/^I select my site$/) do
   expect(page).to have_xpath("//input[@type='radio']")
   site_radio = page.first(:xpath, "//input[@type='radio']")
-  site_radio.click()
+  site_radio.click
 end
 
 Given(/^'(.*)' has created a site '(.*)'$/) do |email, site_name|
   make_a_user(email)
   visit '/'
   click_link 'Login'
-  log_in(email, "Password7!")
+  log_in(email, 'Password7!')
   create_site(site_name)
   logout
 end
@@ -69,34 +71,34 @@ Then(/^I see the site '(.*)'$/) do |site_name|
   expect(page).to have_content "Name: #{site_name}"
 end
 
-
 Given(/^the following users have the following roles and statuses at the following sites$/) do |table|
   # table is a table.hashes.keys # => [:user, :site, :role, :status]
   table.hashes.each do |row|
     user = User.find_by_email(row[:user])
     unless user
-      user = User.create!(email: row[:user], password: 'Password7!', password_confirmation: 'Password7!')
+      user = User.create!(
+        email: row[:user],
+        password: 'Password7!',
+        password_confirmation: 'Password7!'
+      )
       user.skip_confirmation!
       user.save
     end
     site = Site.find_by_name(row[:site])
-    unless site
-      site = Site.create!(name: row[:site])
-    end
+    site ||= Site.create!(name: row[:site])
     SiteMember.create!(site: site, user: user, role: row[:role], status: row[:status])
   end
 end
 
-
 Then(/^user '(.*)' sees the following list on the Sites page$/) do |email, table|
   # table is a table.hashes.keys # => [:Site, :Role, :Present]
   visit '/'
-  click_link "Login"
-  log_in(email, "Password7!")
+  click_link 'Login'
+  log_in(email, 'Password7!')
   expect(page).to have_content email
-  click_link "Sites"
+  click_link 'Sites'
 
-  expect(page).to have_content "Sites"
+  expect(page).to have_content 'Sites'
 
   table.hashes.each do |expected|
     expect(page).to have_content expected[:Site]
@@ -105,13 +107,12 @@ Then(/^user '(.*)' sees the following list on the Sites page$/) do |email, table
     expect(actual).to have_content expected[:Role]
     expect(actual).to have_content expected[:Present]
   end
-  
-  click_link "Logout"
-end
 
+  click_link 'Logout'
+end
 
 And(/^Site "([^"]*)" is in timezone "([^"]*)"$/) do |site_name, time_zone_name|
   site = Site.find_by name: site_name
   site.time_zone = time_zone_name
-  site.save()
+  site.save
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # All Administrate controllers inherit from this `Admin::ApplicationController`,
 # making it the ideal place to put authentication logic or other
 # before_actions.
@@ -10,13 +12,13 @@ module Admin
 
     def authenticate_admin
       unless current_user
-        flash[:alert] = "Try logging in first."
+        flash[:alert] = 'Try logging in first.'
         redirect_to :root
         return
       end
 
       unless current_user.sys_admin?
-        flash[:alert] = "You are not allowed to do that."
+        flash[:alert] = 'You are not allowed to do that.'
         redirect_to :root
       end
     end

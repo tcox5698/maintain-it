@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ScheduledChoresController < ApplicationController
-  before_action :set_scheduled_chore, only: [:show, :edit, :update, :destroy]
+  before_action :set_scheduled_chore, only: %i[show edit update destroy]
 
   # GET /scheduled_chores
   # GET /scheduled_chores.json
@@ -9,8 +11,7 @@ class ScheduledChoresController < ApplicationController
 
   # GET /scheduled_chores/1
   # GET /scheduled_chores/1.json
-  def show
-  end
+  def show; end
 
   # GET /scheduled_chores/new
   def new
@@ -18,8 +19,7 @@ class ScheduledChoresController < ApplicationController
   end
 
   # GET /scheduled_chores/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /scheduled_chores
   # POST /scheduled_chores.json
@@ -62,13 +62,14 @@ class ScheduledChoresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_scheduled_chore
-      @scheduled_chore = ScheduledChore.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def scheduled_chore_params
-      params.require(:scheduled_chore).permit(:due, :chore_id, :site_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_scheduled_chore
+    @scheduled_chore = ScheduledChore.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def scheduled_chore_params
+    params.require(:scheduled_chore).permit(:due, :chore_id, :site_id)
+  end
 end

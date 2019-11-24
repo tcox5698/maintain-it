@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SitesController < AuthedController
-  before_action :set_site, only: [:show, :edit, :update, :destroy]
+  before_action :set_site, only: %i[show edit update destroy]
 
   # GET /sites
   # GET /sites.json
@@ -9,8 +11,7 @@ class SitesController < AuthedController
 
   # GET /sites/1
   # GET /sites/1.json
-  def show
-  end
+  def show; end
 
   # GET /sites/new
   def new
@@ -18,25 +19,24 @@ class SitesController < AuthedController
   end
 
   # GET /sites/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /sites
   # POST /sites.json
   def create
     @site = Site.new(site_params)
     site_member_attrs = { user: current_user, site: @site }
-    @site_member = SiteMember.new(attributes=site_member_attrs)
-    @site_member.role = "host"
-    @site_member.status = "present"
+    @site_member = SiteMember.new(attributes = site_member_attrs)
+    @site_member.role = 'host'
+    @site_member.status = 'present'
 
     respond_to do |format|
-      if @site.save and @site_member.save
-        format.html {redirect_to @site, notice: 'Site was successfully created.'}
-        format.json {render :show, status: :created, location: @site}
+      if @site.save && @site_member.save
+        format.html { redirect_to @site, notice: 'Site was successfully created.' }
+        format.json { render :show, status: :created, location: @site }
       else
-        format.html {render :new}
-        format.json {render json: @site.errors, status: :unprocessable_entity}
+        format.html { render :new }
+        format.json { render json: @site.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,11 +46,11 @@ class SitesController < AuthedController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html {redirect_to @site, notice: 'Site was successfully updated.'}
-        format.json {render :show, status: :ok, location: @site}
+        format.html { redirect_to @site, notice: 'Site was successfully updated.' }
+        format.json { render :show, status: :ok, location: @site }
       else
-        format.html {render :edit}
-        format.json {render json: @site.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @site.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,12 +60,13 @@ class SitesController < AuthedController
   def destroy
     @site.destroy
     respond_to do |format|
-      format.html {redirect_to sites_url, notice: 'Site was successfully destroyed.'}
-      format.json {head :no_content}
+      format.html { redirect_to sites_url, notice: 'Site was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_site
     if current_user

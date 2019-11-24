@@ -1,1 +1,3 @@
-json.partial! "sites/site", site: @site
+# frozen_string_literal: true
+
+json.partial! 'sites/site', site: @site

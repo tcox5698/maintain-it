@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module RegistrationHelper
   def enter_registration_info(user_name, password)
-    page.fill_in 'user[email]', :with => user_name
-    page.fill_in 'Password', :with => password
-    page.fill_in 'Password confirmation', :with => password
+    page.fill_in 'user[email]', with: user_name
+    page.fill_in 'Password', with: password
+    page.fill_in 'Password confirmation', with: password
     page.click_on 'Sign up'
   end
 
@@ -30,7 +32,7 @@ module RegistrationHelper
       enter_registration_info(user_name, 'Password7!')
       click_email_confirmation_link
     end
-    
+
     log_in(user_name, 'Password7!')
   end
 
@@ -40,7 +42,7 @@ module RegistrationHelper
   end
 
   def make_a_user(email)
-    user = User.create!(email: email, password: "Password7!", password_confirmation: "Password7!")
+    user = User.create!(email: email, password: 'Password7!', password_confirmation: 'Password7!')
     user.skip_confirmation!
     user.save
   end

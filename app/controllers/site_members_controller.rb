@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SiteMembersController < AuthedController
-  before_action :set_site_member, only: [:show, :edit, :update, :destroy]
+  before_action :set_site_member, only: %i[show edit update destroy]
 
   # GET /site_members
   # GET /site_members.json
@@ -9,8 +11,7 @@ class SiteMembersController < AuthedController
 
   # GET /site_members/1
   # GET /site_members/1.json
-  def show
-  end
+  def show; end
 
   # GET /site_members/new
   def new
@@ -18,8 +19,7 @@ class SiteMembersController < AuthedController
   end
 
   # GET /site_members/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /site_members
   # POST /site_members.json
@@ -62,13 +62,14 @@ class SiteMembersController < AuthedController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_site_member
-      @site_member = SiteMember.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def site_member_params
-      params.require(:site_member).permit(:nick_name, :user_id, :site_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_site_member
+    @site_member = SiteMember.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def site_member_params
+    params.require(:site_member).permit(:nick_name, :user_id, :site_id)
+  end
 end

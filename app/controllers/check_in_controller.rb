@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CheckInController < AuthedController
   def start_visitor
     @sites = current_user.sites
@@ -13,6 +15,6 @@ class CheckInController < AuthedController
   end
 
   def check_in_visitor_params
-    params.require([:email, :selected_site])
+    params.require(%i[email selected_site])
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Then(/^an email is sent to "([^"]*)" with the following scheduled chores$/) do |email_address, expected_chores|
   # expected chores is table with :ChoreName, :ChoreDescription, :Due
 

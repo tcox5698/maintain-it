@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Site < ApplicationRecord
   validates_presence_of :name
 
@@ -5,18 +7,16 @@ class Site < ApplicationRecord
   has_many :scheduled_chores
 
   def check_in_user(email:)
-    user = User.find_by_email(email)
+    user = User.find_by_email(email) || create_user(email)
 
-    user = create_user(email) unless user
+    site_members_rel = user.site_members.where(site_id: id)
+    site_member = if site_members_rel.exists?
+                    site_members_rel.first
+                  else
+                    SiteMember.new(user: user, site: self)
+                  end
 
-    site_members_rel = user.site_members.where(site_id: self.id)
-    if site_members_rel.exists?
-      site_member = site_members_rel.first
-    else
-      site_member =SiteMember.new(user: user, site: self)
-    end
-
-    site_member.status = "present"
+    site_member.status = 'present'
     site_member.save!
 
     user.send_confirmation_instructions

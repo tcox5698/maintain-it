@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NotificationChannel < ApplicationRecord
   TYPE_EMAIL = 'email'
 

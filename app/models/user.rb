@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -8,7 +10,7 @@ class User < ApplicationRecord
   has_many :site_members, dependent: :destroy
 
   def sites
-    Site.joins(:site_members).where('site_members.user_id = ?', self.id)
+    Site.joins(:site_members).where('site_members.user_id = ?', id)
   end
 end
 

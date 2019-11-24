@@ -1,16 +1,16 @@
+# frozen_string_literal: true
+
 Then(/^I see the "([^"]*)" page$/) do |title|
   expect(page).to have_content title
 end
 
-
 And(/^I enter the following chore information and save$/) do |table|
   inputs = table.hashes.first
-  page.fill_in 'chore[name]', :with => inputs[:ChoreName]
-  page.fill_in 'chore[description]', :with => inputs[:ChoreDescription]
+  page.fill_in 'chore[name]', with: inputs[:ChoreName]
+  page.fill_in 'chore[description]', with: inputs[:ChoreDescription]
   page.click_on 'Create Chore'
   expect(page).to have_content('Chore was successfully created.')
 end
-
 
 def assert_chores_displayed(table)
   table.hashes.each do |expected|
@@ -22,13 +22,12 @@ def assert_chores_displayed(table)
   end
 end
 
-Then(/^I see this list of chores for site "([^"]*)"$/) do |site_name, table|
+Then(/^I see this list of chores for site "([^"]*)"$/) do |_site_name, table|
   # table is a table.hashes.keys # => [:ChoreName, :ChoreDescription, :Schedule]
   assert_chores_displayed(table)
 end
 
-
-And(/^Site Host "([^"]*)" has created the following chores$/) do |email, table|
+And(/^Site Host "([^"]*)" has created the following chores$/) do |_email, table|
   # table is a table.hashes.keys # => [:SiteName, :ChoreName, :ChoreDescription, :ChoreSchedule]
 
   # create the chores
@@ -39,16 +38,15 @@ And(/^Site Host "([^"]*)" has created the following chores$/) do |email, table|
                   schedule: chore[:ChoreSchedule].downcase, site: site)
   end
 
-  visit("/chores")
+  visit('/chores')
   assert_chores_displayed(table)
 end
 
-
-Then(/^Site Host "([^"]*)" sees the following chores schedule for Site "([^"]*)"$/) do |email, site_name, table|
+Then(/^Site Host "([^"]*)" sees the following chores schedule for Site "([^"]*)"$/) do |_email, _site_name, table|
   # table is a table.hashes.keys # => [:ChoreName, :ChoreDescription, :Due]
-  visit("/scheduled_chores")
+  visit('/scheduled_chores')
 
-  rows = page.all(:xpath, "//tbody/tr")
+  rows = page.all(:xpath, '//tbody/tr')
 
   expect(rows.size).to eq table.hashes.size
 
