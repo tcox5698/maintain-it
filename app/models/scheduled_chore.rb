@@ -4,7 +4,14 @@ class ScheduledChore < ApplicationRecord
   belongs_to :chore
   belongs_to :site
 
+  after_initialize :populate_due
   validates_presence_of :due
+
+  def populate_due
+    return unless due.blank?
+
+    self.due = chore&.next_due_date
+  end
 end
 
 # == Schema Information

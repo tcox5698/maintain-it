@@ -5,7 +5,7 @@ class Chore < ApplicationRecord
   after_initialize :populate_defaults
   validates_presence_of :name
   validates :schedule, inclusion: { in: %w[daily],
-                                    message: "%{value} is not a supported schedule. Try 'daily'" }
+                                    message: "%<value>s is not a supported schedule. Try 'daily'" }
 
   def populate_defaults
     self.schedule = 'daily' if schedule.blank?
@@ -14,6 +14,19 @@ class Chore < ApplicationRecord
   def already_scheduled?
     Time.use_zone(site.time_zone) do
       ScheduledChore.where('chore_id = ? AND due > ?', id, Time.zone.now).exists?
+    end
+  end
+
+  def next_due_date
+    puts "CODE CHORE: #{id}"
+
+    Time.use_zone(site.time_zone) do
+      ten_pm_today = Time.zone.now.end_of_day - 2.hours
+      due = ten_pm_today
+      due = (due + 1.day) if Time.zone.now > ten_pm_today
+      puts "CODE TIME ZONE: #{site.time_zone}"
+      puts "CODE DUE TIME: #{due}"
+      due
     end
   end
 end
