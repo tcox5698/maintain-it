@@ -17,7 +17,7 @@
       <tr>
         <td><%= scheduled_chore.chore.name %></td>
         <td><%= scheduled_chore.chore.description %></td>
-        <td><%= Time.use_zone(scheduled_chore.site.time_zone) { scheduled_chore.due.to_formatted_s(:long_ordinal) }%></td>
+        <td><%= scheduled_chore.due.in_time_zone(scheduled_chore.site.time_zone).to_formatted_s(:long_ordinal) %></td>
         <td><%= link_to 'Show', scheduled_chore %></td>
         <td><%= link_to 'Edit', edit_scheduled_chore_path(scheduled_chore) %></td>
         <td><%= link_to 'Destroy', scheduled_chore, method: :delete, data: { confirm: 'Are you sure?' } %></td>

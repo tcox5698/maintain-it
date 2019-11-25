@@ -5,7 +5,9 @@ require 'rails_helper'
 RSpec.describe ScheduledChore, type: :model do
   let(:chore) { FactoryBot.create(:chore) }
   it 'validates presence of due' do
-    expect { ScheduledChore.create!(due: nil, chore: chore, site: chore.site) }
+    scheduled_chore = ScheduledChore.new(due: nil, chore: chore, site: chore.site)
+    scheduled_chore.due = nil
+    expect { scheduled_chore.save! }
       .to raise_error "Validation failed: Due can't be blank"
   end
 

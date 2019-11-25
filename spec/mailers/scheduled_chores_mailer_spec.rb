@@ -11,7 +11,7 @@ RSpec.describe ScheduledChoresMailer, type: :mailer do
     let(:chore) { create :chore, site: site_member.site }
 
     context 'when site has a scheduled chore' do
-      let(:scheduled_chore) { create :scheduled_chore, chore: chore, site: site_member.site }
+      let(:scheduled_chore) { ScheduledChore.create(chore: chore, site: site_member.site) }
 
       before do
         expect(site_member_other).not_to be_nil
@@ -75,7 +75,7 @@ RSpec.describe ScheduledChoresMailer, type: :mailer do
           let(:site_member_other) do
             other_member = FactoryBot.create(:site_member, site: site, user: user_other)
             channel = other_member.notification_channels.first
-            channel.update({ enabled: false })
+            channel.update(enabled: false)
             other_member
           end
 
@@ -83,7 +83,7 @@ RSpec.describe ScheduledChoresMailer, type: :mailer do
             expect(site_member_other.notification_channels.first.enabled).to be_falsey
           end
 
-          describe "the email" do
+          describe 'the email' do
             it "has the 'time for chores' subject" do
               expect(@mail.subject).to eq "MaintainIt! It's time to get some chores done!"
             end

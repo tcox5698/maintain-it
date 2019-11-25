@@ -25,14 +25,6 @@ class SiteMember < ApplicationRecord
     notification_channels.find { |channel| channel.channel_type == channel_type }
   end
 
-  def notification_channel_enabled?(channel_type)
-    notification_channel(channel_type)&.enabled
-  end
-
-  def notification_channel(channel_type)
-    self.notification_channels.find { |channel| channel.channel_type == channel_type }
-  end
-
   def populate_defaults
     populate_nick_name
     populate_role
@@ -44,6 +36,7 @@ class SiteMember < ApplicationRecord
 
   def populate_nick_name
     return unless user
+
     self.nick_name = user.email.split('@')[0] if nick_name.blank?
   end
 end
