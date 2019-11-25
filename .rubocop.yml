@@ -13,6 +13,7 @@ AllCops:
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/environments/production.rb'
     - 'config/application.rb'
+    - 'config/spring.rb'
     - 'bin/**/*'
 
 

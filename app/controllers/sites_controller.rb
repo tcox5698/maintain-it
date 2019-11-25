@@ -26,7 +26,7 @@ class SitesController < AuthedController
   def create
     @site = Site.new(site_params)
     site_member_attrs = { user: current_user, site: @site }
-    @site_member = SiteMember.new(attributes = site_member_attrs)
+    @site_member = SiteMember.new(site_member_attrs)
     @site_member.role = 'host'
     @site_member.status = 'present'
 
