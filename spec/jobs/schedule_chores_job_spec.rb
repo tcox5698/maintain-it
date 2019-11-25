@@ -130,12 +130,8 @@ RSpec.describe ScheduleChoresJob, type: :job do
         it 'schedules the chore for tomorrow' do
           expect(ScheduledChore.count).to eq 2
           expected_days = Time.use_zone(site.time_zone) do
-            puts "TEST TIME in zone: #{ScheduledChore.first.due}"
             [Time.zone.now.day, (Time.zone.now + 1.day).day]
           end
-
-          puts "TEST TIME out of zone: #{ScheduledChore.first.due}"
-
 
           actual_days = [ScheduledChore.first.due.day, ScheduledChore.last.due.day]
           expect(actual_days).to eq expected_days

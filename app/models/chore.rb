@@ -18,14 +18,10 @@ class Chore < ApplicationRecord
   end
 
   def next_due_date
-    puts "CODE CHORE: #{id}"
-
     Time.use_zone(site.time_zone) do
       ten_pm_today = Time.zone.now.end_of_day - 2.hours
       due = ten_pm_today
       due = (due + 1.day) if Time.zone.now > ten_pm_today
-      puts "CODE TIME ZONE: #{site.time_zone}"
-      puts "CODE DUE TIME: #{due}"
       due
     end
   end
