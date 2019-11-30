@@ -11,7 +11,8 @@ class SitesController < AuthedController
 
   # GET /sites/1
   # GET /sites/1.json
-  def show; end
+  def show;
+  end
 
   # GET /sites/new
   def new
@@ -19,19 +20,14 @@ class SitesController < AuthedController
   end
 
   # GET /sites/1/edit
-  def edit; end
+  def edit;
+  end
 
   # POST /sites
   # POST /sites.json
   def create
-    @site = Site.new(site_params)
-    site_member_attrs = { user: current_user, site: @site }
-    @site_member = SiteMember.new(site_member_attrs)
-    @site_member.role = 'host'
-    @site_member.status = 'present'
-
     respond_to do |format|
-      if @site.save && @site_member.save
+      if create_site_and_member
         format.html { redirect_to @site, notice: 'Site was successfully created.' }
         format.json { render :show, status: :created, location: @site }
       else
@@ -39,6 +35,15 @@ class SitesController < AuthedController
         format.json { render json: @site.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def create_site_and_member
+    @site = Site.new(site_params)
+    site_member_attrs = { user: current_user, site: @site }
+    @site_member = SiteMember.new(site_member_attrs)
+    @site_member.role = 'host'
+    @site_member.status = 'present'
+    @site.save && @site_member.save
   end
 
   # PATCH/PUT /sites/1

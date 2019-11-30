@@ -15,6 +15,7 @@ AllCops:
     - 'config/application.rb'
     - 'config/spring.rb'
     - 'bin/**/*'
+    - 'Gemfile'
 
 
 Metrics/AbcSize:
