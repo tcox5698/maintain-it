@@ -35,5 +35,9 @@ Style/Documentation:
   Exclude:
     - '**/*'
 
+Style/EmptyMethod:
+  Exclude:
+    - '**/*'
+
 Style/Encoding:
   Enabled: false

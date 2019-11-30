@@ -11,7 +11,7 @@ class ChoresController < AuthedController
 
   # GET /chores/1
   # GET /chores/1.json
-  def show;
+  def show
   end
 
   # GET /chores/new
@@ -21,7 +21,7 @@ class ChoresController < AuthedController
   end
 
   # GET /chores/1/edit
-  def edit;
+  def edit
   end
 
   # POST /chores

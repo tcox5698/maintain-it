@@ -56,7 +56,7 @@ class SiteMembersController < AuthedController
   def destroy
     @site_member.destroy
     respond_to do |format|
-      format.html { redirect_to site_members_url, notice: 'Site member was successfully destroyed.' }
+      format.html { redirect_to site_members_url, notice: 'Site member deleted.' }
       format.json { head :no_content }
     end
   end

@@ -11,8 +11,7 @@ class SitesController < AuthedController
 
   # GET /sites/1
   # GET /sites/1.json
-  def show;
-  end
+  def show; end
 
   # GET /sites/new
   def new
@@ -20,8 +19,7 @@ class SitesController < AuthedController
   end
 
   # GET /sites/1/edit
-  def edit;
-  end
+  def edit; end
 
   # POST /sites
   # POST /sites.json
