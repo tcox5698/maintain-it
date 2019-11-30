@@ -13,7 +13,9 @@ AllCops:
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/environments/production.rb'
     - 'config/application.rb'
+    - 'config/spring.rb'
     - 'bin/**/*'
+    - 'Gemfile'
 
 
 Metrics/AbcSize:
@@ -30,6 +32,10 @@ Metrics/LineLength:
     - 'features/step_definitions/*_steps.rb'
 
 Style/Documentation:
+  Exclude:
+    - '**/*'
+
+Style/EmptyMethod:
   Exclude:
     - '**/*'
 

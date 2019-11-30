@@ -28,7 +28,7 @@ class ScheduledChoresController < ApplicationController
 
     respond_to do |format|
       if @scheduled_chore.save
-        format.html { redirect_to @scheduled_chore, notice: 'Scheduled chore was successfully created.' }
+        format.html { redirect_to @scheduled_chore, notice: 'Scheduled chore created.' }
         format.json { render :show, status: :created, location: @scheduled_chore }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ScheduledChoresController < ApplicationController
   def update
     respond_to do |format|
       if @scheduled_chore.update(scheduled_chore_params)
-        format.html { redirect_to @scheduled_chore, notice: 'Scheduled chore was successfully updated.' }
+        format.html { redirect_to @scheduled_chore, notice: 'Scheduled chore updated.' }
         format.json { render :show, status: :ok, location: @scheduled_chore }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ScheduledChoresController < ApplicationController
   def destroy
     @scheduled_chore.destroy
     respond_to do |format|
-      format.html { redirect_to scheduled_chores_url, notice: 'Scheduled chore was successfully destroyed.' }
+      format.html { redirect_to scheduled_chores_url, notice: 'Scheduled chore deleted.' }
       format.json { head :no_content }
     end
   end

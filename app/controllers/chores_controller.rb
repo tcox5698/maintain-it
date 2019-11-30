@@ -11,7 +11,8 @@ class ChoresController < AuthedController
 
   # GET /chores/1
   # GET /chores/1.json
-  def show; end
+  def show
+  end
 
   # GET /chores/new
   def new
@@ -20,19 +21,13 @@ class ChoresController < AuthedController
   end
 
   # GET /chores/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /chores
   # POST /chores.json
   def create
-    chore_hash, site_id = chore_params
-    site = Site.find(site_id)
-    @chore = Chore.new(
-      name: chore_hash[:name],
-      description: chore_hash[:description],
-      schedule: chore_hash[:schedule],
-      site: site
-    )
+    instantiate_chore
 
     respond_to do |format|
       if @chore.save
@@ -45,16 +40,22 @@ class ChoresController < AuthedController
     end
   end
 
+  def instantiate_chore
+    chore_hash, site_id = chore_params
+    site = Site.find(site_id)
+    @chore = Chore.new(
+      name: chore_hash[:name],
+      description: chore_hash[:description],
+      schedule: chore_hash[:schedule],
+      site: site
+    )
+  end
+
   # PATCH/PUT /chores/1
   # PATCH/PUT /chores/1.json
   def update
-    chore_hash, site_id = chore_params
-    site = Site.find(site_id)
     respond_to do |format|
-      if @chore.update(name: chore_hash[:name],
-                       description: chore_hash[:description],
-                       schedule: chore_hash[:schedule],
-                       site: site)
+      if update_chore
         format.html { redirect_to @chore, notice: 'Chore was successfully updated.' }
         format.json { render :show, status: :ok, location: @chore }
       else
@@ -62,6 +63,15 @@ class ChoresController < AuthedController
         format.json { render json: @chore.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def update_chore
+    chore_hash, site_id = chore_params
+    site = Site.find(site_id)
+    @chore.update(name: chore_hash[:name],
+                  description: chore_hash[:description],
+                  schedule: chore_hash[:schedule],
+                  site: site)
   end
 
   # DELETE /chores/1

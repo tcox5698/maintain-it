@@ -17,10 +17,10 @@ module Admin
         return
       end
 
-      unless current_user.sys_admin?
-        flash[:alert] = 'You are not allowed to do that.'
-        redirect_to :root
-      end
+      return if current_user.sys_admin?
+
+      flash[:alert] = 'You are not allowed to do that.'
+      redirect_to :root
     end
 
     # Override this value to specify the number of elements to display at a time
