@@ -10,4 +10,4 @@ sleep 3
 
 psql -h localhost -U postgres -f "./script/db_init_user.sql"
 
-bundle exec rails db:setup
+bundle exec rails db:setup              
