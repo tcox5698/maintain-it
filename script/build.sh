@@ -2,6 +2,8 @@
 
 bundle install
 
+rubocop
+
 bundle exec rake parallel:prepare[3]
 # bundle exec rake db:migrate RAILS_ENV=test
 
