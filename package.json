@@ -1,5 +1,8 @@
 {
   "name": "maintain-it",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": ">=12"
+  }
 }
