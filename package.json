@@ -3,6 +3,6 @@
   "private": true,
   "dependencies": {},
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=9.6.1"
   }
 }
