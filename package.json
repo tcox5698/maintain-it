@@ -1,5 +1,9 @@
 {
   "name": "maintain-it",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": ">=9.6.1",
+    "npm": ">=6.14.0"
+  }
 }
