@@ -1,4 +1,4 @@
 <%
 std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict"
 %>
-default: <%= std_opts %> features
+default: <%= std_opts %> features --publish-quiet 

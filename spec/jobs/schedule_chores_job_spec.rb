@@ -80,7 +80,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
               end
 
               it 'has due equal to 10 pm today central time' do
-                require 'active_support/values/time_zone.rb'
+                require 'active_support/values/time_zone'
 
                 Time.use_zone(site_time_zone) do
                   ten_pm_today = Time.zone.now.end_of_day - 2.hours
