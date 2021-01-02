@@ -29,7 +29,7 @@ RSpec.describe ScheduleChoresJob, type: :job do
       end
     end
 
-    context 'when chore exists for today' do
+    context 'when chore exists' do
       let(:site) { FactoryBot.create(:site, time_zone: site_time_zone) }
       let(:chore) { FactoryBot.create(:chore, site: site) }
 
@@ -43,18 +43,18 @@ RSpec.describe ScheduleChoresJob, type: :job do
         end
       end
 
-      context 'when chore has already been scheduled for today' do
+      context 'when chore has already been scheduled' do
         before do
           expect(ScheduledChore.count).to eq 1
           ScheduleChoresJob.perform_now
         end
 
-        it 'does not schedule the chore again for today' do
+        it 'does not schedule the chore again' do
           expect(ScheduledChore.count).to eq 1
         end
       end
 
-      context 'when chore has not been scheduled for today' do
+      context 'when chore has not been scheduled' do
         it 'schedules a single chore' do
           expect(ScheduledChore.count).to eq 1
         end
@@ -111,8 +111,8 @@ RSpec.describe ScheduleChoresJob, type: :job do
           ScheduleChoresJob.perform_now
         end
 
-        it 'schedules the chore again for today' do
-          expect(ScheduledChore.count).to eq 2
+        it 'does not schedule the chore again' do
+          expect(ScheduledChore.count).to eq 1
         end
       end
 
@@ -127,14 +127,8 @@ RSpec.describe ScheduleChoresJob, type: :job do
           end
         end
 
-        it 'schedules the chore for tomorrow' do
-          expect(ScheduledChore.count).to eq 2
-          expected_days = Time.use_zone(site.time_zone) do
-            [Time.zone.now.day, (Time.zone.now + 1.day).day]
-          end
-
-          actual_days = [ScheduledChore.first.due.day, ScheduledChore.last.due.day]
-          expect(actual_days).to eq expected_days
+        it 'does not schedule the chore again' do
+          expect(ScheduledChore.count).to eq 1
         end
       end
     end

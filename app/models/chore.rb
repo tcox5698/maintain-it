@@ -13,7 +13,7 @@ class Chore < ApplicationRecord
 
   def already_scheduled?
     Time.use_zone(site.time_zone) do
-      ScheduledChore.where('chore_id = ? AND due > ?', id, Time.zone.now).exists?
+      ScheduledChore.where('chore_id = ?', id).exists?
     end
   end
 

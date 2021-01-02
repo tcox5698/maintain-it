@@ -60,8 +60,8 @@ RSpec.describe Chore, type: :model do
     context 'when due in past' do
       let(:fake_now) { Time.zone.now.end_of_day - 119.minutes } # 10:01 pm
 
-      it 'is false' do
-        expect(chore.already_scheduled?).to be_falsey
+      it 'is true' do
+        expect(chore.already_scheduled?).to be_truthy
       end
     end
   end
