@@ -9,7 +9,7 @@ if [ -f .ruby-version ]; then rvm use $(cat .ruby-version) --install; fi
 nvm install 10.23.0
 npm install --global npm@"$(jq -r '.engines.npm' package.json)"
 mkdir -p node_modules/.bin
-if [[ ! -e "node_modules/.bin/nodejs" ]]; then
+if [ ! -e "node_modules/.bin/nodejs" ]; then
   echo "creating link"
   ln -s $(which node) node_modules/.bin/nodejs
 fi
