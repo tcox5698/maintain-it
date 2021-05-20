@@ -10,7 +10,7 @@ npm install --global npm@"$(jq -r '.engines.npm' package.json)"
 mkdir -p node_modules/.bin
 if [ ! -e "node_modules/.bin/nodejs" ]; then ln -s $(which node) node_modules/.bin/nodejs; fi
 echo "NODE: $(nodejs --version)"
-rvm use 2.6.3 --install
+rvm use 2.7.2 --install
 gem install bundler
 bundle install
 # Make sure Ruby on Rails knows we are in the the test environment.
