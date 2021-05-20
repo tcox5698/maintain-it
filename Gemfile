@@ -70,4 +70,4 @@ gem 'rubocop', require: false
 gem 'annotate'
 gem 'devise'
 
-ruby '2.6.3'
+ruby '2.7.2'
